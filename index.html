@@ -5,808 +5,1457 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Vagas de Química — Grande ABC</title>
 <style>
-  :root{ padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
-  /* ============ TOKENS ============ */
-  :root{
-    --bg:#F5F8FC;
-    --surface:#FFFFFF;
-    --surface-2:#EFF4FA;
-    --ink:#0B2545;
-    --ink-2:#334155;
-    --ink-3:#64748B;
-    --border:#E2E8F0;
-    --border-strong:#CBD5E1;
-    --accent:#2563EB;
-    --accent-ink:#FFFFFF;
-    --accent-soft:#EFF6FF;
-    --accent-soft-ink:#1D4ED8;
-    --accent-light:#93C5FD;
-    --focus-ring:#2563EB;
-    --eyebrow-bg:#0B2545;
-    --eyebrow-ink:#BFDBFE;
-    --eyebrow-dot:#60A5FA;
+:root{
+  --bg:#F5F8FC;
+  --surface:#FFFFFF;
+  --surface-2:#EFF4FA;
+  --ink:#0B2545;
+  --ink-2:#334155;
+  --ink-3:#64748B;
+  --border:#E2E8F0;
+  --border-strong:#CBD5E1;
+  --accent:#2563EB;
+  --accent-ink:#FFFFFF;
+  --accent-soft:#EFF6FF;
+  --accent-soft-ink:#1D4ED8;
+  --accent-light:#93C5FD;
+  --focus-ring:#2563EB;
+  --eyebrow-bg:#0B2545;
+  --eyebrow-ink:#BFDBFE;
+  --eyebrow-dot:#60A5FA;
+  --type-estagio-bg:#FDECC8;
+  --type-estagio-ink:#B45309;
+  --type-clt-bg:#D8F5E3;
+  --type-clt-ink:#15803D;
+  --type-temp-bg:#EAE2FB;
+  --type-temp-ink:#6D28D9;
+  --shadow-card:0 1px 2px rgba(11,37,69,.07), 0 1px 1px rgba(11,37,69,.04);
+  --font-display:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.45;
+}
+a{color:inherit;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 64px;}
 
-    --type-estagio-bg:#FDECC8;
-    --type-estagio-ink:#B45309;
-    --type-clt-bg:#D8F5E3;
-    --type-clt-ink:#15803D;
-    --type-temp-bg:#EAE2FB;
-    --type-temp-ink:#6D28D9;
+/* ---------- HERO ---------- */
+.hero{
+  background:linear-gradient(160deg,#0B2545 0%,#123566 55%,#1D4ED8 130%);
+  color:#fff;
+  padding:40px 20px 34px;
+}
+.hero-inner{max-width:760px;margin:0 auto;}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.18);
+  color:var(--eyebrow-ink);
+  font-size:12.5px;font-weight:600;letter-spacing:.02em;
+  padding:6px 12px;border-radius:999px;margin-bottom:16px;
+}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--eyebrow-dot);display:inline-block;}
+.title{
+  font-family:var(--font-display);
+  font-size:clamp(26px,5vw,34px);
+  font-weight:700;letter-spacing:-.01em;
+  margin:0 0 10px;
+}
+.subtitle{
+  font-size:15px;color:#CBDCF7;max-width:58ch;margin:0;
+}
 
-    --shadow-card:0 1px 2px rgba(11,37,69,.07), 0 1px 1px rgba(11,37,69,.04);
-    --font-display:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    --font-body:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    --font-mono:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  }
+/* ---------- STATS ---------- */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  max-width:760px;margin:-20px auto 0;padding:0 20px;position:relative;z-index:2;
+}
+.stat-tile{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:14px 10px;text-align:center;box-shadow:var(--shadow-card);
+}
+.stat-tile.hero{background:var(--ink);border-color:var(--ink);}
+.stat-tile.hero .n,.stat-tile.hero .l{color:#fff;}
+.stat-tile .n{display:block;font-size:26px;font-weight:700;font-family:var(--font-display);line-height:1.1;}
+.stat-tile .l{display:block;font-size:11.5px;color:var(--ink-3);margin-top:3px;font-weight:600;letter-spacing:.01em;}
 
-  /* ============ BASE ============ */
-  *{ box-sizing:border-box; }
-  html,body{ background:var(--bg); }
-  body{
-    margin:0;
-    font-family:var(--font-body);
-    color:var(--ink);
-    padding-inline: max(16px, env(safe-area-inset-left,0px)) max(16px, env(safe-area-inset-right,0px));
-    font-size:14px;
-    line-height:1.5;
-  }
-  .shell{ max-width:1180px; margin:0 auto; }
-  a{ color:inherit; }
-  button{ font-family:inherit; }
-  :focus-visible{ outline:2px solid var(--focus-ring); outline-offset:2px; border-radius:4px; }
-  ::selection{ background:var(--accent-soft); color:var(--accent-soft-ink); }
-  h1,h2,h3{ text-wrap:balance; margin:0; }
-  .tnum{ font-variant-numeric: tabular-nums; }
+/* ---------- CITY PANEL ---------- */
+.city-panel{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  margin:14px 0;padding:16px 18px;box-shadow:var(--shadow-card);
+}
+.city-panel .cp-label{font-size:12px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;}
+.bar-row{display:grid;grid-template-columns:160px 1fr 28px;align-items:center;gap:10px;margin-bottom:7px;}
+.bar-row:last-child{margin-bottom:0;}
+.bar-row .city-l{font-size:12.5px;color:var(--ink-2);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bar-track{background:var(--surface-2);border-radius:6px;height:8px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:6px;background:var(--accent-light);}
+.bar-fill.top{background:var(--accent);}
+.bar-row .count{font-size:13px;font-weight:700;color:var(--ink);text-align:right;font-family:var(--font-display);}
 
-  /* ============ HEADER ============ */
-  .topbar{ padding-block:28px 20px; border-bottom:1px solid var(--border); }
-  .eyebrow{
-    font-family:var(--font-mono); font-size:11px; font-weight:700;
-    letter-spacing:.12em; text-transform:uppercase; color:var(--eyebrow-ink);
-    background:var(--eyebrow-bg); display:inline-flex; align-items:center; gap:8px;
-    padding:5px 13px; border-radius:999px; margin-bottom:14px;
-  }
-  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:var(--eyebrow-dot); }
-  h1.title{
-    font-family:var(--font-display); font-weight:800; font-size:clamp(26px,4vw,38px);
-    letter-spacing:-0.01em; line-height:1.06; color:var(--ink);
-  }
-  .subtitle{ color:var(--ink-2); font-size:14.5px; margin-top:8px; max-width:62ch; }
-  .meta-line{
-    display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:14px;
-    font-family:var(--font-mono); font-size:11.5px; color:var(--ink-3);
-  }
-  .meta-line b{ color:var(--ink-2); font-weight:600; }
+/* ---------- FILTERS ---------- */
+.filter-console{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  margin:14px 0 10px;box-shadow:var(--shadow-card);overflow:hidden;
+}
+.filter-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;cursor:pointer;user-select:none;
+}
+.filter-head h2{font-size:14px;margin:0;font-weight:700;}
+.toggle-filters-btn{
+  background:var(--surface-2);border:1px solid var(--border);border-radius:8px;
+  width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--ink-2);transition:transform .18s ease;
+}
+.filter-groups-wrap{display:grid;grid-template-rows:1fr;transition:grid-template-rows .18s ease;}
+.filter-groups-wrap[data-open="false"]{grid-template-rows:0fr;}
+.filter-groups-wrap[data-open="false"] .toggle-filters-btn{transform:rotate(-90deg);}
+.filter-groups-inner{overflow:hidden;}
+.filter-body{padding:0 18px 16px;display:flex;flex-direction:column;gap:14px;}
+.f-group .f-label{font-size:11.5px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+.chipset{display:flex;flex-wrap:wrap;gap:7px;}
+.chip{
+  border:1px solid var(--border-strong);background:var(--surface);color:var(--ink-2);
+  font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;cursor:pointer;
+  transition:.12s ease;
+}
+.chip.active{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-soft-ink);}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+select{
+  width:100%;font-size:13px;font-family:var(--font-body);color:var(--ink);
+  border:1px solid var(--border-strong);border-radius:9px;padding:9px 10px;
+  background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2364748B' stroke-width='1.5' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E") right 12px center no-repeat;
+  appearance:none;-webkit-appearance:none;
+}
+select:focus{outline:2px solid var(--focus-ring);outline-offset:1px;}
+.filter-footer{display:flex;align-items:center;justify-content:space-between;padding-top:2px;}
+.clear-btn{
+  background:none;border:none;color:var(--accent);font-size:13px;font-weight:700;
+  cursor:pointer;padding:4px 0;
+}
 
-  /* ============ STATS ============ */
-  .stats{
-    display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr;
-    gap:1px; background:var(--border);
-    border:1px solid var(--border); border-radius:14px; overflow:hidden;
-    margin-block:22px; box-shadow:var(--shadow-card);
-  }
-  .stat-tile{ background:var(--surface); padding:16px 18px; display:flex; flex-direction:column; justify-content:center; gap:2px; min-width:0; }
-  .stat-tile .n{ font-family:var(--font-display); font-weight:800; font-size:34px; line-height:1; color:var(--ink); }
-  .stat-tile.hero .n{ color:var(--accent); }
-  .stat-tile .l{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); margin-top:4px; }
+/* ---------- RESULT LINE ---------- */
+.result-line{font-size:13.5px;color:var(--ink-3);margin:4px 2px 12px;}
+.result-line .tnum{color:var(--ink);font-family:var(--font-display);}
 
-  .city-panel{
-    display:grid; grid-template-columns:auto 1fr; align-items:center; gap:16px 22px;
-    background:var(--surface); border:1px solid var(--border); border-radius:14px;
-    padding:16px 20px; margin-bottom:22px; box-shadow:var(--shadow-card);
-  }
-  .city-panel .cp-label{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); white-space:nowrap; }
-  .city-bars{ display:flex; flex-direction:column; gap:8px; min-width:0; }
-  .bar-row{ display:grid; grid-template-columns: 168px 1fr 26px; align-items:center; gap:10px; }
-  .bar-row .city-l{ font-size:12px; color:var(--ink-2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .bar-track{ height:8px; background:var(--surface-2); border-radius:4px; overflow:hidden; }
-  .bar-fill{ height:100%; background:var(--accent-light); border-radius:4px; }
-  .bar-fill.top{ background:var(--accent); }
-  .bar-row .count{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-3); text-align:right; }
+/* ---------- CARDS ---------- */
+.cards{display:flex;flex-direction:column;gap:10px;}
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  box-shadow:var(--shadow-card);overflow:hidden;position:relative;
+}
+.card::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+}
+.card[data-type="estagio"]::before{background:var(--type-estagio-ink);}
+.card[data-type="clt"]::before{background:var(--type-clt-ink);}
+.card[data-type="temporario"]::before{background:var(--type-temp-ink);}
+.card-head{display:grid;grid-template-columns:1fr auto auto;align-items:start;gap:12px;padding:16px 16px 16px 20px;cursor:pointer;}
+.card-badges{display:flex;flex-direction:column;gap:6px;grid-column:1;grid-row:1;order:1;}
+.badge{display:inline-flex;width:fit-content;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:.01em;}
+.badge.estagio{background:var(--type-estagio-bg);color:var(--type-estagio-ink);}
+.badge.clt{background:var(--type-clt-bg);color:var(--type-clt-ink);}
+.badge.temporario{background:var(--type-temp-bg);color:var(--type-temp-ink);}
+.badge-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.new-pill{background:var(--ink);color:#fff;font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.02em;}
+.ref-tag{font-size:10.5px;color:var(--ink-3);font-family:var(--font-mono,monospace);letter-spacing:.01em;}
+.card-main{grid-column:1 / -2;grid-row:2;}
+.card-title{font-family:var(--font-display);font-size:16.5px;font-weight:700;margin:2px 0 6px;color:var(--ink);}
+.card-meta{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--ink-2);}
+.card-meta span{display:inline-flex;align-items:center;gap:5px;}
+.card-meta .checked-on{color:#15803D;font-weight:600;}
+.card-meta svg{flex:none;color:var(--ink-3);}
+.area-tag{
+  grid-column:2;grid-row:1/3;align-self:start;
+  background:var(--surface-2);color:var(--ink-2);font-size:11px;font-weight:600;
+  padding:5px 10px;border-radius:8px;white-space:nowrap;margin-top:2px;
+}
+.chev{grid-column:3;grid-row:1/3;align-self:center;color:var(--ink-3);transition:transform .18s ease;}
+.card[data-open="true"] .chev{transform:rotate(180deg);}
+.card-detail{max-height:0;overflow:hidden;transition:max-height .2s ease;}
+.card[data-open="true"] .card-detail{max-height:600px;}
+.card-detail-inner{padding:0 20px 18px;border-top:1px solid var(--border);margin-top:2px;padding-top:14px;}
+.detail-row{font-size:13.5px;color:var(--ink-2);margin-bottom:8px;line-height:1.5;}
+.detail-row:last-of-type{margin-bottom:0;}
+.detail-row b{color:var(--ink);}
+.apply-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--border);}
+.source-tag{font-size:12px;color:var(--ink-3);font-weight:600;}
+.right-links{display:flex;gap:16px;flex-wrap:wrap;}
+.company-link,.apply-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;text-decoration:none;}
+.company-link{color:var(--ink-2);}
+.apply-link{color:var(--accent);}
+.company-link:hover,.apply-link:hover{text-decoration:underline;}
 
-  @media (max-width:900px){
-    .stats{ grid-template-columns: 1fr 1fr; }
-    .city-panel{ grid-template-columns:1fr; gap:10px; }
-    .bar-row{ grid-template-columns: 128px 1fr 26px; }
-  }
+.empty-state{text-align:center;padding:48px 20px;color:var(--ink-3);font-size:14px;}
 
-  /* ============ FILTER CONSOLE ============ */
-  .console{
-    background:var(--bg);
-    padding-block:14px 12px; border-bottom:1px solid var(--border);
-  }
-  .console-inner{
-    background:var(--surface); border:1px solid var(--border); border-radius:14px;
-    padding:14px 16px; box-shadow:var(--shadow-card);
-    display:flex; flex-direction:column;
-  }
-  .search-row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-  .search-wrap{ position:relative; flex:1 1 260px; min-width:0; }
-  .search-wrap svg{ position:absolute; left:11px; top:50%; transform:translateY(-50%); opacity:.5; pointer-events:none; }
-  #search{
-    width:100%; padding:9px 12px 9px 34px; border-radius:9px; border:1px solid var(--border-strong);
-    background:var(--surface-2); color:var(--ink); font-family:var(--font-mono); font-size:13px;
-  }
-  #search::placeholder{ color:var(--ink-3); }
-  #search:focus-visible{ background:var(--surface); }
-  .clear-btn{
-    font-family:var(--font-mono); font-size:11.5px; font-weight:600; letter-spacing:.03em;
-    color:var(--ink-2); background:var(--surface-2); border:1px solid var(--border-strong);
-    border-radius:9px; padding:9px 13px; cursor:pointer; white-space:nowrap;
-  }
-  .clear-btn:hover{ color:var(--ink); border-color:var(--ink-3); }
+footer{margin-top:28px;padding-top:20px;border-top:1px solid var(--border);}
+footer p{font-size:12px;color:var(--ink-3);line-height:1.6;margin:0 0 10px;}
+footer p:last-child{margin-bottom:0;}
 
-  .toggle-filters-btn{
-    font-family:var(--font-mono); font-size:11.5px; font-weight:600; letter-spacing:.03em;
-    color:var(--accent-soft-ink); background:var(--accent-soft); border:1px solid var(--accent-soft);
-    border-radius:9px; padding:9px 13px; cursor:pointer; white-space:nowrap;
-    display:inline-flex; align-items:center; gap:7px;
-  }
-  .toggle-filters-btn:hover{ border-color:var(--accent); }
-  .toggle-filters-btn .chev{ transition:transform .16s ease; flex:none; }
-  .toggle-filters-btn[aria-expanded="false"] .chev{ transform:rotate(-90deg); }
-
-  .filter-groups-wrap{ display:grid; grid-template-rows:1fr; transition:grid-template-rows .18s ease; margin-top:12px; }
-  .filter-groups-wrap[data-open="false"]{ grid-template-rows:0fr; margin-top:0; }
-  .filter-groups-wrap-inner{ overflow:hidden; }
-
-  .filter-groups{ display:flex; flex-wrap:wrap; gap:16px 26px; align-items:flex-end; }
-  .fgroup{ display:flex; flex-direction:column; gap:6px; }
-  .fgroup .flabel{
-    font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);
-  }
-  .fgroup .fhint{
-    font-family:var(--font-mono); font-size:9px; letter-spacing:.04em; text-transform:none;
-    color:var(--ink-3); opacity:.75; font-weight:400; margin-left:2px;
-  }
-  .chipset{ display:flex; flex-wrap:wrap; gap:6px; }
-  .chip{
-    font-family:var(--font-body); font-size:12.5px; font-weight:500;
-    padding:6px 12px; border-radius:999px; border:1px solid var(--border-strong);
-    background:var(--surface); color:var(--ink-2); cursor:pointer; line-height:1.2;
-  }
-  .chip[aria-pressed="true"]{ background:var(--accent); border-color:var(--accent); color:var(--accent-ink); font-weight:600; }
-  .chip:hover:not([aria-pressed="true"]){ border-color:var(--ink-3); color:var(--ink); }
-
-  select.dd{
-    font-family:var(--font-body); font-size:12.5px; color:var(--ink);
-    background:var(--surface-2); border:1px solid var(--border-strong); border-radius:9px;
-    padding:7px 30px 7px 11px; cursor:pointer;
-    appearance:none; -webkit-appearance:none;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7'><path d='M1 1l4 4 4-4' stroke='%237C8B90' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
-    background-repeat:no-repeat; background-position:right 11px center;
-  }
-
-  .result-line{
-    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
-    padding-block:16px 12px; font-family:var(--font-mono); font-size:12px; color:var(--ink-3);
-  }
-  .result-line b{ color:var(--ink); font-weight:600; }
-
-  /* ============ CARDS ============ */
-  .grid{ display:flex; flex-direction:column; gap:10px; padding-bottom:48px; }
-  .card{
-    background:var(--surface); border:1px solid var(--border); border-radius:14px;
-    box-shadow:var(--shadow-card); overflow:hidden; display:flex;
-  }
-  .card-stripe{ width:4px; flex:none; background:var(--type-color, var(--accent)); align-self:stretch; }
-  .card-content{ flex:1; min-width:0; display:flex; flex-direction:column; }
-  .card-head{
-    width:100%; text-align:left; background:none; border:none; cursor:pointer; color:inherit;
-    padding:14px 18px; display:grid;
-    grid-template-columns: 168px minmax(0,1fr) auto auto; align-items:center; gap:8px 20px;
-  }
-  .card-head:hover{ background:var(--surface-2); }
-  .chead-badges{ display:flex; flex-direction:column; align-items:flex-start; gap:6px; min-width:0; max-width:100%; }
-  .chead-badges .row2{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; min-width:0; max-width:100%; }
-  .badge{
-    font-size:11px; font-weight:700; padding:3px 10px; border-radius:999px;
-    background:var(--type-bg); color:var(--type-ink); white-space:nowrap;
-  }
-  .new-pill{
-    font-family:var(--font-mono); font-size:9.5px; font-weight:700; letter-spacing:.06em;
-    color:var(--accent-soft-ink); background:var(--accent-soft); border-radius:999px; padding:2px 7px;
-    white-space:nowrap;
-  }
-  .ref{ font-family:var(--font-mono); font-size:10px; color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; max-width:100%; }
-  .chead-main{ min-width:0; display:flex; flex-direction:column; gap:6px; }
-  .card-title{ font-size:15px; font-weight:700; line-height:1.3; color:var(--ink); }
-  .card-meta{ display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12px; color:var(--ink-2); }
-  .card-meta span{ display:inline-flex; align-items:center; gap:5px; }
-  .card-meta svg{ opacity:.65; flex:none; }
-  .card-meta .checked-on{ color:var(--ink-3); }
-  .area-tag{
-    font-size:11px; color:var(--ink-2); background:var(--surface-2);
-    border:1px solid var(--border); border-radius:7px; padding:4px 10px; white-space:nowrap;
-  }
-  .chev{ transition:transform .16s ease; flex:none; color:var(--ink-3); }
-  .card[data-open="true"] .chev{ transform:rotate(180deg); }
-
-  .card-body{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .18s ease; }
-  .card[data-open="true"] .card-body{ grid-template-rows:1fr; }
-  .card-body-inner{ overflow:hidden; }
-  .fields{ padding:2px 18px 14px 22px; display:flex; flex-direction:column; gap:9px; border-top:1px solid var(--border); margin-top:2px; padding-top:12px; }
-  .field{ font-size:12.5px; color:var(--ink-2); line-height:1.5; }
-  .field b{ color:var(--ink); font-weight:600; }
-  .apply-row{
-    margin:0 18px 16px 22px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
-    background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:9px 12px;
-  }
-  .source-tag{ font-family:var(--font-mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-3); }
-  .apply-row .right-links{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
-  .apply-link{
-    font-size:12.5px; font-weight:700; color:var(--accent); text-decoration:none; white-space:nowrap;
-    display:inline-flex; align-items:center; gap:5px;
-  }
-  .apply-link:hover{ text-decoration:underline; }
-  .company-link{
-    font-size:12.5px; font-weight:600; color:var(--ink-2); text-decoration:none; white-space:nowrap;
-    display:inline-flex; align-items:center; gap:5px;
-  }
-  .company-link:hover{ color:var(--ink); text-decoration:underline; }
-
-  .empty-state{
-    text-align:center; padding:60px 20px; color:var(--ink-3);
-    border:1px dashed var(--border-strong); border-radius:14px;
-  }
-  .empty-state p{ margin:0 0 14px; font-size:13.5px; }
-
-  footer{
-    border-top:1px solid var(--border); padding-block:22px 34px;
-    font-size:12px; color:var(--ink-3); display:flex; flex-direction:column; gap:6px;
-  }
-  footer b{ color:var(--ink-2); }
-
-  @media (max-width:760px){
-    .card-head{ grid-template-columns:1fr; justify-items:start; }
-    .chead-badges .row2{ flex-wrap:wrap; }
-    .area-tag{ justify-self:start; }
-  }
-  @media (max-width:480px){
-    .stat-tile .n{ font-size:26px; }
-  }
+@media (max-width:900px){
+  .stats{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:400px){
+  .bar-row{grid-template-columns:118px 1fr 24px;}
+  .bar-row .city-l{font-size:11.5px;}
+}
+@media (max-width:760px){
+  .card-head{grid-template-columns:1fr auto;}
+  .card-main{grid-column:1;grid-row:2;}
+  .area-tag{grid-column:2;grid-row:1;}
+  .chev{grid-column:2;grid-row:2;align-self:start;margin-top:4px;}
+  .f-row{grid-template-columns:1fr;}
+}
+@media (max-width:480px){
+  .stat-tile .n{font-size:21px;}
+  .hero{padding:32px 16px 30px;}
+  .wrap{padding:0 14px 48px;}
+}
 </style>
 </head>
 <body>
-<div class="shell">
 
-  <header class="topbar">
-    <div class="eyebrow"><span class="dot"></span>Painel regional · Grande ABC, SP</div>
+<div class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow"><span class="dot"></span>Atualizado em 28/09/2026</span>
     <h1 class="title">Vagas de Química — Grande ABC</h1>
     <p class="subtitle">Analista júnior, técnico em química e auxiliar de laboratório em indústrias, laboratórios e centros de P&amp;D de Santo André, São Bernardo do Campo, São Caetano do Sul, Diadema e Mauá.</p>
-    <div class="meta-line">
-      <span><b>Última atualização</b> · 19 set 2026</span>
-      <span><b>Fontes</b> · Indeed, Catho, Vagas.com, Portal IMT, LinkedIn das empresas</span>
-      <span><b>Links</b> · testados individualmente</span>
-    </div>
-  </header>
+  </div>
+</div>
 
-  <section class="stats" id="stats" aria-label="Resumo estatístico das vagas"></section>
-  <section class="city-panel" id="cityPanel" aria-label="Vagas por cidade">
-    <span class="cp-label">Vagas por cidade</span>
-    <div class="city-bars" id="cityBars"></div>
+<div class="wrap">
+
+  <section class="stats" id="statsSection"></section>
+
+  <section class="city-panel">
+    <div class="cp-label">Vagas por cidade</div>
+    <div id="cityBars"></div>
   </section>
 
-  <div class="console">
-    <div class="console-inner">
-      <div class="search-row">
-        <div class="search-wrap">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.6" stroke="currentColor" stroke-width="1.4"/><path d="M9.6 9.6L13 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          <label for="search" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Buscar vagas</label>
-          <input id="search" type="text" placeholder="buscar cargo, empresa, setor…" autocomplete="off">
+  <section class="filter-console">
+    <div class="filter-head" id="filterHead">
+      <h2>Filtros</h2>
+      <button class="toggle-filters-btn" id="toggleFiltersBtn" aria-label="Alternar filtros">
+        <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="filter-groups-wrap" id="filterGroupsWrap" data-open="true">
+      <div class="filter-groups-inner">
+        <div class="filter-body">
+          <div class="f-group">
+            <div class="f-label">Cidade</div>
+            <div class="chipset" id="cityChips"></div>
+          </div>
+          <div class="f-group">
+            <div class="f-label">Tipo de vaga</div>
+            <div class="chipset" id="typeChips"></div>
+          </div>
+          <div class="f-row">
+            <div class="f-group">
+              <div class="f-label">Área</div>
+              <select id="areaSelect"></select>
+            </div>
+            <div class="f-group">
+              <div class="f-label">Empresa</div>
+              <select id="companySelect"></select>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="f-group">
+              <div class="f-label">Fonte</div>
+              <select id="sourceSelect"></select>
+            </div>
+            <div class="f-group">
+              <div class="f-label">Ordenar</div>
+              <select id="sortSelect">
+                <option value="recent">Mais recentes</option>
+                <option value="city">Cidade (A-Z)</option>
+                <option value="company">Empresa (A-Z)</option>
+                <option value="title">Título (A-Z)</option>
+              </select>
+            </div>
+          </div>
+          <div class="filter-footer">
+            <button class="clear-btn" id="clearBtn">Limpar filtros</button>
+          </div>
         </div>
-        <button class="toggle-filters-btn" id="toggleFiltersBtn" type="button" aria-expanded="true" aria-controls="filterGroupsWrap">
-          <span id="toggleFiltersLabel">Recolher filtros</span>
-          <svg class="chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 8l3-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="clear-btn" id="clearBtn" type="button">Limpar filtros</button>
-      </div>
-      <div class="filter-groups-wrap" id="filterGroupsWrap" data-open="true">
-       <div class="filter-groups-wrap-inner">
-        <div class="filter-groups">
-        <div class="fgroup">
-          <span class="flabel">Cidade <span class="fhint">seleção múltipla</span></span>
-          <div class="chipset" id="cityChips" role="group" aria-label="Filtrar por cidade (seleção múltipla)"></div>
-        </div>
-        <div class="fgroup">
-          <span class="flabel">Tipo de vaga <span class="fhint">seleção múltipla</span></span>
-          <div class="chipset" id="typeChips" role="group" aria-label="Filtrar por tipo de vaga (seleção múltipla)"></div>
-        </div>
-        <div class="fgroup">
-          <span class="flabel">Área de atuação</span>
-          <label for="areaSelect" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Área de atuação</label>
-          <select class="dd" id="areaSelect"></select>
-        </div>
-        <div class="fgroup">
-          <span class="flabel">Empresa</span>
-          <label for="companySelect" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Empresa</label>
-          <select class="dd" id="companySelect"></select>
-        </div>
-        <div class="fgroup">
-          <span class="flabel">Fonte</span>
-          <label for="sourceSelect" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Fonte</label>
-          <select class="dd" id="sourceSelect"></select>
-        </div>
-        <div class="fgroup">
-          <span class="flabel">Ordenar</span>
-          <label for="sortSelect" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Ordenar por</label>
-          <select class="dd" id="sortSelect">
-            <option value="recent">Mais recentes</option>
-            <option value="city">Cidade (A–Z)</option>
-            <option value="company">Empresa (A–Z)</option>
-            <option value="title">Título (A–Z)</option>
-          </select>
-        </div>
-        </div>
-       </div>
       </div>
     </div>
-    <div class="result-line">
-      <span>Mostrando <b class="tnum" id="countShown">0</b> de <b class="tnum" id="countTotal">0</b> vagas</span>
-      <span id="filterSummary"></span>
-    </div>
-  </div>
+  </section>
 
-  <main>
-    <div class="grid" id="grid"></div>
-  </main>
+  <p class="result-line">Mostrando <b class="tnum" id="countShown">0</b> de <b class="tnum" id="countTotal">0</b> vagas</p>
+
+  <section class="cards" id="cardsContainer"></section>
 
   <footer>
-    <span><b>Metodologia</b> — vagas levantadas em três rodadas (08/09, 14/09 e 19/09/2026) via busca em Indeed, Catho, Vagas.com, Portal IMT e — a partir da 3ª rodada — nas páginas de LinkedIn das empresas da região. Cada link foi acessado individualmente para confirmar que a vaga estava ativa na data indicada como "Verificado em" no card.</span>
-    <span><b>Atualizações</b> — a cada nova rodada de busca, as vagas já listadas são reconferidas; as que não estiverem mais ativas são removidas do painel e só as vagas novas ou ainda abertas permanecem. Na rodada de 19/09/2026: 2 vagas removidas (indisponíveis), 18 vagas novas adicionadas.</span>
-    <span>Vagas de plataformas como Catho e Indeed costumam fechar em poucas semanas — candidate-se assim que possível. Painel de uso pessoal, sem vínculo com as empresas listadas.</span>
+    <p>Metodologia — vagas levantadas em quatro rodadas de busca (08/09, 14/09, 19/09 e 21/09/2026) via Indeed, Catho, Vagas.com, Portal de carreiras do Instituto Mauá de Tecnologia e — a partir da 3ª rodada — nas páginas de LinkedIn das empresas da região (via páginas-espelho de ATS quando o LinkedIn bloqueia leitura automatizada). Cada link foi acessado individualmente para confirmar que a vaga estava ativa na data indicada como “Verificado em” no card.</p>
+    <p>Atualizações — a cada nova rodada, as vagas já publicadas são reconferidas uma a uma; as que não estiverem mais ativas são removidas do painel e só as vagas novas ou ainda abertas permanecem. Na atualização de 28/09/2026: as 43 vagas então publicadas foram reverificadas e 3 foram removidas por estarem indisponíveis (estágio em laboratório de CQ de tintas decorativas da Suvinil/Sherwin-Williams, estágio técnico em química do Instituto Mauá de Tecnologia e auxiliar de laboratório da Aston); as 12 vagas restantes da rodada de 21/09/2026 (já documentadas, mas ainda não publicadas aqui) foram revalidadas e adicionadas ao painel. Nenhuma vaga nova adicional foi encontrada nesta rodada.</p>
+    <p>Vagas de plataformas como Catho e Indeed costumam fechar em poucas semanas — candidate-se assim que possível. Painel de uso pessoal, sem vínculo com as empresas listadas.</p>
   </footer>
 
 </div>
 
 <script>
-(function(){
-  "use strict";
+var DATA = [
+  {
+    "title": "Estágio em Química",
+    "city": "Santo André",
+    "company": "Trescal Brasil",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Metrologia, Inspeção e Certificação",
+    "source": "Indeed",
+    "checked": "08/09/2026",
+    "batch": 1,
+    "activities": "Apoiar calibração de equipamentos e manutenção de bancos de dados",
+    "requirements": "Técnico em Química/Física/Farmácia, pacote Office básico",
+    "schedule": "Seg-sex, 8h-15h (1h almoço)",
+    "benefits": "Assistência médica/odontológica, seguro de vida, VR, VT, bem-estar",
+    "reference": "INDEED · 7D8C23E7",
+    "link": "https://br.indeed.com/viewjob?jk=7d8c23e75122a97f"
+  },
+  {
+    "title": "Auxiliar de Laboratório",
+    "city": "Santo André",
+    "company": "GAM Consultoria RH",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Farmácia e Manipulação",
+    "source": "Catho",
+    "checked": "08/09/2026",
+    "batch": 1,
+    "activities": "Encapsulação de fórmulas, envase, selagem, controle de qualidade",
+    "requirements": "Ensino médio; Técnico em Farmácia/Química é diferencial",
+    "schedule": "11h-20h + sáb 9h-13h",
+    "benefits": "—",
+    "reference": "CATHO · 38113233",
+    "link": "https://www.catho.com.br/vagas/auxiliar-de-laboratorio/38113233"
+  },
+  {
+    "title": "Estágio (Química/Eng. Química/Farmácia)",
+    "city": "São Bernardo do Campo",
+    "company": "SGS",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Metrologia, Inspeção e Certificação",
+    "source": "Indeed",
+    "checked": "08/09/2026",
+    "batch": 1,
+    "activities": "Preparo de soluções, pesagem de reagentes, análises de higiene/meio ambiente",
+    "requirements": "Cursando Química/Engenharia Química/Farmácia, Office básico",
+    "schedule": "—",
+    "benefits": "—",
+    "reference": "INDEED · 4C252AF3",
+    "link": "https://br.indeed.com/viewjob?jk=4c252af3b4878ebd"
+  },
+  {
+    "title": "Estágio Desenvolvimento de Produto - GTC",
+    "city": "São Bernardo do Campo",
+    "company": "Colgate-Palmolive",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Cosméticos e Higiene Pessoal",
+    "source": "Indeed",
+    "checked": "08/09/2026",
+    "batch": 1,
+    "activities": "Apoiar inovação de produtos de higiene bucal: formulação, testes, BPF",
+    "requirements": "Cursando Química/Farmácia, inglês intermediário, Office/Workspace",
+    "schedule": "6h/dia, 8h-15h, presencial",
+    "benefits": "—",
+    "reference": "INDEED · B702ADB9",
+    "link": "https://br.indeed.com/viewjob?jk=b702adb9ef928e4e"
+  },
+  {
+    "title": "Auxiliar de Produção Química/Tintas/Plástico",
+    "city": "São Bernardo do Campo",
+    "company": "Grupo AMA",
+    "type": "Temporário",
+    "typeSlug": "temporario",
+    "area": "Química Industrial",
+    "source": "Catho",
+    "checked": "08/09/2026",
+    "batch": 1,
+    "activities": "Operação de máquinas em linha de produção química, tintas ou plásticos",
+    "requirements": "Ensino médio; experiência em indústria química/tintas/plásticos",
+    "schedule": "—",
+    "benefits": "Tíquete-refeição, restaurante, VT",
+    "reference": "CATHO · 37825353",
+    "link": "https://www.catho.com.br/vagas/auxiliar-de-producao-quimicatintasplastico-sbc/37825353"
+  },
+  {
+    "title": "Ajudante de Produção - Química",
+    "city": "São Bernardo do Campo",
+    "company": "P&V Consultoria RH",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Química Industrial",
+    "source": "Catho",
+    "checked": "08/09/2026",
+    "batch": 1,
+    "activities": "Pesagem de insumos, alimentação de matérias-primas, descarregamento de filtros",
+    "requirements": "Ensino médio; experiência em indústrias químicas",
+    "schedule": "Seg-qui 12h-22h; sex 12h-21h",
+    "benefits": "Vale-alimentação R$500, VR, seguro, assistência médica/odonto",
+    "reference": "CATHO · 37104617",
+    "link": "https://www.catho.com.br/vagas/ajudante-de-producao-quimica/37104617"
+  },
+  {
+    "title": "Auxiliar de Laboratório",
+    "city": "São Caetano do Sul",
+    "company": "Health Tech Laboratório",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Farmácia e Manipulação",
+    "source": "Catho",
+    "checked": "08/09/2026",
+    "batch": 1,
+    "activities": "Lavagem/preparo/esterilização de materiais estéreis, autoclaves, manutenção",
+    "requirements": "Ensino médio; experiência em farmácia/laboratório/hospital diferencial",
+    "schedule": "Seg-qui 14h-00h; sex 14h-23h",
+    "benefits": "—",
+    "reference": "CATHO · 37178679",
+    "link": "https://www.catho.com.br/vagas/auxiliar-de-laboratorio/37178679"
+  },
+  {
+    "title": "Auxiliar de Laboratório",
+    "city": "Diadema",
+    "company": "Agroquímica Maringá",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Química Industrial",
+    "source": "Catho",
+    "checked": "08/09/2026",
+    "batch": 1,
+    "activities": "Preparar materiais/equipamentos para análises, limpeza do lab, coleta/descarte",
+    "requirements": "Ensino médio; Técnico em Química preferencial; CRQ ativo",
+    "schedule": "Seg-sex 8h12-18h",
+    "benefits": "Assistência médica/odonto, seguro, VR, cesta básica, estacionamento",
+    "reference": "CATHO · 37480325",
+    "link": "https://www.catho.com.br/vagas/auxiliar-de-laboratorio/37480325"
+  },
+  {
+    "title": "Estagiário Técnico da Garantia da Qualidade",
+    "city": "Diadema",
+    "company": "MSA Safety",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Equipamentos de Proteção e Segurança",
+    "source": "Indeed",
+    "checked": "08/09/2026",
+    "batch": 1,
+    "activities": "Apoiar controle de qualidade, testes de desempenho, registros, KPIs",
+    "requirements": "Cursando Mecânica/Elétrica/Mecatrônica/Química/Plásticos",
+    "schedule": "—",
+    "benefits": "—",
+    "reference": "INDEED · BAC3B92D",
+    "link": "https://br.indeed.com/viewjob?jk=bac3b92da66e5a37"
+  },
+  {
+    "title": "Assistente Químico",
+    "city": "Mauá",
+    "company": "Moderna",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Química Industrial",
+    "source": "Catho",
+    "checked": "08/09/2026",
+    "batch": 1,
+    "activities": "Controle de qualidade de matérias-primas/produtos, documentação técnica",
+    "requirements": "Técnico em Química; mínimo 2 anos de experiência; FISPQ, ISO/ASTM/ABNT",
+    "schedule": "Seg-sex 7h30-17h15",
+    "benefits": "Vale-combustível/VT, assistência, refeições/lanches",
+    "reference": "CATHO · 37080426",
+    "link": "https://www.catho.com.br/vagas/assistente-quimico/37080426"
+  },
+  {
+    "title": "Ajudante de Produção (Químico)",
+    "city": "Mauá",
+    "company": "Grupo AMA",
+    "type": "Temporário",
+    "typeSlug": "temporario",
+    "area": "Química Industrial",
+    "source": "Catho",
+    "checked": "08/09/2026",
+    "batch": 1,
+    "activities": "Abastecimento de linha de produção, inspeção visual, possibilidade de efetivação",
+    "requirements": "—",
+    "schedule": "Turnos 5h40-14h ou 14h-22h35 + sáb",
+    "benefits": "Após efetivação: VT, vale-alimentação, assistência médica",
+    "reference": "CATHO · 37940966",
+    "link": "https://www.catho.com.br/vagas/ajudante-de-producao-quimico-maua/37940966"
+  },
+  {
+    "title": "Estagiário na Área de Química",
+    "city": "Santo André",
+    "company": "LS Analyses (via Jobbol)",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Química Industrial",
+    "source": "Indeed",
+    "checked": "14/09/2026",
+    "batch": 2,
+    "activities": "Receber, conferir e organizar amostras para análise",
+    "requirements": "Técnico em andamento; sem experiência necessária",
+    "schedule": "Seg-sex, 8h12-15h12",
+    "benefits": "Vale-transporte, seguro de vida",
+    "reference": "INDEED · B5F38899",
+    "link": "https://br.indeed.com/viewjob?jk=b5f38899ef41e5b5"
+  },
+  {
+    "title": "Auxiliar de Laboratório",
+    "city": "Santo André",
+    "company": "GAM Consultoria RH",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Farmácia e Manipulação",
+    "source": "Catho",
+    "checked": "14/09/2026",
+    "batch": 2,
+    "activities": "Encapsulação, envase, controle de peso e qualidade",
+    "requirements": "Ensino médio; técnico em Farmácia/Química diferencial",
+    "schedule": "Seg-sex, 11h-20h; sáb 9h-13h",
+    "benefits": "Restaurante, vale-transporte",
+    "reference": "CATHO · 38323687",
+    "link": "https://www.catho.com.br/vagas/auxiliar-de-laboratorio/38323687"
+  },
+  {
+    "title": "Estágio em Química",
+    "city": "São Bernardo do Campo",
+    "company": "Marcia Mendes",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Química Industrial",
+    "source": "Indeed",
+    "checked": "14/09/2026",
+    "batch": 2,
+    "activities": "Testes de qualidade, apoio laboratorial, ordens de produção",
+    "requirements": "Cursando técnico em Química (1º/2º semestre)",
+    "schedule": "Seg-sex, 8h-15h",
+    "benefits": "—",
+    "reference": "INDEED · 6D22EC04",
+    "link": "https://br.indeed.com/viewjob?jk=6d22ec0462850da5"
+  },
+  {
+    "title": "Estagiário Técnico na Área de Química",
+    "city": "São Bernardo do Campo",
+    "company": "Jobbol (Entusiasmo RH)",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Química Industrial",
+    "source": "Indeed",
+    "checked": "14/09/2026",
+    "batch": 2,
+    "activities": "Controle de qualidade, rotinas laboratoriais, acompanhamento de processos",
+    "requirements": "Técnico em andamento; experiência anterior é um diferencial",
+    "schedule": "Meio período, seg-sex, 8h-15h",
+    "benefits": "Convênio médico, seguro, vale-alimentação",
+    "reference": "INDEED · 37A92730",
+    "link": "https://br.indeed.com/viewjob?jk=37a92730727d2d3f"
+  },
+  {
+    "title": "Auxiliar de Controle de Qualidade — Lab. Químico (Tintas)",
+    "city": "São Bernardo do Campo",
+    "company": "Grupo AMA",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Tintas e Vernizes",
+    "source": "Catho",
+    "checked": "14/09/2026",
+    "batch": 2,
+    "activities": "Análises e testes de qualidade em produtos de tintas",
+    "requirements": "Experiência em CQ laboratorial; conhecimento normativo",
+    "schedule": "—",
+    "benefits": "Restaurante, vale-transporte",
+    "reference": "CATHO · 38345762",
+    "link": "https://www.catho.com.br/vagas/auxiliar-de-controle-de-qualidade-laboratorio-quimico-tintas/38345762"
+  },
+  {
+    "title": "Estágio Técnico em Química",
+    "city": "São Bernardo do Campo",
+    "company": "Indústria química de grande porte",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Química Industrial",
+    "source": "Catho",
+    "checked": "14/09/2026",
+    "batch": 2,
+    "activities": "CQ em laboratório, ensaios técnicos, forno contínuo",
+    "requirements": "Cursando técnico em Química (1º/2º semestre)",
+    "schedule": "Seg-sex, 8h-15h (1h intervalo)",
+    "benefits": "Seguro, tíquete-alimentação, vale-transporte",
+    "reference": "CATHO · 38012175",
+    "link": "https://www.catho.com.br/vagas/estagio-tecnico-em-quimica/38012175"
+  },
+  {
+    "title": "Analista de Laboratório Júnior",
+    "city": "São Caetano do Sul",
+    "company": "Richard Saigh",
+    "type": "CLT Efetivo",
+    "typeSlug": "clt",
+    "area": "Laboratório de Análises",
+    "source": "Catho",
+    "checked": "14/09/2026",
+    "batch": 2,
+    "activities": "Planejar trabalho de laboratório, preparar soluções, análises",
+    "requirements": "Ensino médio; curso técnico na área",
+    "schedule": "Seg-sex 8h-17h; sáb 8h-12h",
+    "benefits": "Convênio médico/odontológico, tíquete-refeição",
+    "reference": "CATHO · 37480407",
+    "link": "https://www.catho.com.br/vagas/analista-de-laboratorio-junior/37480407"
+  },
+  {
+    "title": "Auxiliar de Laboratório Jr",
+    "city": "São Caetano do Sul",
+    "company": "PHD do Brasil",
+    "type": "CLT Efetivo",
+    "typeSlug": "clt",
+    "area": "Farmácia e Manipulação",
+    "source": "Catho",
+    "checked": "14/09/2026",
+    "batch": 2,
+    "activities": "Lavagem, preparo, esterilização de materiais",
+    "requirements": "Ensino médio; organização e atenção a detalhes",
+    "schedule": "Seg-quinta 14h-00h; sexta 14h-23h",
+    "benefits": "—",
+    "reference": "CATHO · 37117468",
+    "link": "https://www.catho.com.br/vagas/auxiliar-de-laboratorio-jr/37117468"
+  },
+  {
+    "title": "Estágio de Pesquisa e Desenvolvimento",
+    "city": "Diadema",
+    "company": "Arcade Beauty",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Cosméticos e Higiene Pessoal",
+    "source": "Indeed",
+    "checked": "14/09/2026",
+    "batch": 2,
+    "activities": "Reprodução e manipulação de fórmulas cosméticas",
+    "requirements": "Cursando Química/Farmácia; levantamento de dados",
+    "schedule": "—",
+    "benefits": "Vale-transporte, cesta básica",
+    "reference": "INDEED · 46983199",
+    "link": "https://br.indeed.com/viewjob?jk=46983199dd1cc79b"
+  },
+  {
+    "title": "Estágio de Controle de Qualidade",
+    "city": "Diadema",
+    "company": "Arcade Beauty",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Cosméticos e Higiene Pessoal",
+    "source": "Indeed",
+    "checked": "14/09/2026",
+    "batch": 2,
+    "activities": "Análises físico-químicas e microbiológicas de produtos",
+    "requirements": "Cursando área correlata; conhecimento laboratorial",
+    "schedule": "—",
+    "benefits": "Vale-transporte, cesta básica",
+    "reference": "INDEED · 8B24A6E6",
+    "link": "https://br.indeed.com/viewjob?jk=8b24a6e6d01b02fd"
+  },
+  {
+    "title": "Auxiliar de Laboratório",
+    "city": "Diadema",
+    "company": "Vivacor",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Tintas e Vernizes",
+    "source": "Catho",
+    "checked": "14/09/2026",
+    "batch": 2,
+    "activities": "Análises de tonalidade, força, viscosidade, cromatografia",
+    "requirements": "CRQ necessário; sem experiência prévia exigida",
+    "schedule": "Seg-quinta 12h-22h; sexta 12h-21h",
+    "benefits": "Convênio médico/odontológico, vale-alimentação",
+    "reference": "CATHO · 38316130",
+    "link": "https://www.catho.com.br/vagas/auxiliar-de-laboratorio/38316130"
+  },
+  {
+    "title": "Técnico de Laboratório de Farmácia",
+    "city": "Santo André",
+    "company": "GAM Consultoria RH",
+    "type": "CLT Efetivo",
+    "typeSlug": "clt",
+    "area": "Farmácia e Manipulação",
+    "source": "Catho",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Preparação, pesagem de ativos, fórmulas personalizadas",
+    "requirements": "Experiência em laboratório farmacêutico",
+    "schedule": "Seg-sex 8h-17h; sáb 9h-13h",
+    "benefits": "Vale-transporte, restaurante, convênio médico",
+    "reference": "CATHO · 38421534",
+    "link": "https://www.catho.com.br/vagas/tecnico-de-laboratorio-de-farmacia/38421534"
+  },
+  {
+    "title": "Auxiliar Técnico de Manipulação de Laboratório de Farmácia",
+    "city": "Santo André",
+    "company": "GAM Consultoria RH",
+    "type": "CLT Efetivo",
+    "typeSlug": "clt",
+    "area": "Farmácia e Manipulação",
+    "source": "Catho",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Manipulação farmacêutica, pesagem, preparo de fórmulas",
+    "requirements": "Experiência em laboratório farmacêutico",
+    "schedule": "Seg-sex 8h-17h; sáb 9h-13h",
+    "benefits": "Refeição local, vale-transporte",
+    "reference": "CATHO · 37685369",
+    "link": "https://www.catho.com.br/vagas/auxiliar-tecnico-de-manipulacao-de-laboratorio-de-farmacia/37685369"
+  },
+  {
+    "title": "Estágio em Engenharia Química (Processos)",
+    "city": "Santo André",
+    "company": "Willisa",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Química Industrial",
+    "source": "Catho",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Acompanhar processos, coletar dados, indicadores",
+    "requirements": "Cursando Engenharia Química; inglês intermediário",
+    "schedule": "—",
+    "benefits": "Convênio médico/odontológico, restaurante",
+    "reference": "CATHO · 38029844",
+    "link": "https://www.catho.com.br/vagas/estagio-em-engenharia-quimica-area-de-processos/38029844"
+  },
+  {
+    "title": "Técnico em Química",
+    "city": "São Bernardo do Campo",
+    "company": "Misque Industrial (via Jobbol)",
+    "type": "CLT Efetivo",
+    "typeSlug": "clt",
+    "area": "Tratamento de Água Industrial",
+    "source": "Indeed",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Análises químicas de matérias-primas e produtos, operação de instrumentos",
+    "requirements": "Técnico em Química completo; experiência anterior",
+    "schedule": "—",
+    "benefits": "—",
+    "reference": "INDEED · 3950E6B8",
+    "link": "https://br.indeed.com/viewjob?jk=3950e6b857fb58b3"
+  },
+  {
+    "title": "Analista de Laboratório Júnior",
+    "city": "São Bernardo do Campo",
+    "company": "SGS",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Metrologia, Inspeção e Certificação",
+    "source": "Indeed",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Preparo de materiais, execução de análises, documentação técnica, gestão de estoque",
+    "requirements": "Técnico em Química ou área afim; Office intermediário",
+    "schedule": "Terça a sábado, 8h às 17h",
+    "benefits": "Assistência médica/odontológica, seguro, VT, SGS Academy, Gympass",
+    "reference": "INDEED · 6BF2548D",
+    "link": "https://br.indeed.com/viewjob?jk=6bf2548dc03396cd"
+  },
+  {
+    "title": "Auxiliar de Laboratório",
+    "city": "São Bernardo do Campo",
+    "company": "SGS",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Metrologia, Inspeção e Certificação",
+    "source": "Indeed",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Preparo de amostras e ensaios químicos, físicos e mecânicos",
+    "requirements": "Ensino técnico completo em Química",
+    "schedule": "Segunda a sexta, 8h às 17h",
+    "benefits": "Assistência médica/odontológica, seguro, VT, SGS Academy, Gympass",
+    "reference": "INDEED · 77D76645",
+    "link": "https://br.indeed.com/viewjob?jk=77d766457002c396"
+  },
+  {
+    "title": "Assistente de Laboratório",
+    "city": "São Bernardo do Campo",
+    "company": "SGS",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Metrologia, Inspeção e Certificação",
+    "source": "Indeed",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Lavagem de vidrarias, preparo de soluções, pesagem e extração de amostras",
+    "requirements": "Técnico em Química, Farmácia, Polímeros ou Análises Químicas",
+    "schedule": "Terça a sábado, 8h às 17h",
+    "benefits": "Assistência médica/odontológica, seguro, VT, SGS Academy, Gympass",
+    "reference": "INDEED · 363A1DB0",
+    "link": "https://br.indeed.com/viewjob?jk=363a1db0a82c1af7"
+  },
+  {
+    "title": "Técnico de Laboratório Pleno",
+    "city": "São Bernardo do Campo",
+    "company": "ITEB Indústria Técnica de Borrachas",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Borracha e Materiais Técnicos",
+    "source": "Indeed",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Ensaios laboratoriais, análise de resultados, apoio ao controle técnico",
+    "requirements": "—",
+    "schedule": "—",
+    "benefits": "—",
+    "reference": "INDEED · 4ECA6F6B",
+    "link": "https://br.indeed.com/viewjob?jk=4eca6f6be84ecab6"
+  },
+  {
+    "title": "Técnico de Laboratório Júnior",
+    "city": "São Bernardo do Campo",
+    "company": "Aromat (Distribuidora de Produtos Químicos)",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Distribuição de Produtos Químicos",
+    "source": "Catho",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Preparo e controle de amostras, ensaios, relatórios técnicos, gestão de estoque",
+    "requirements": "Técnico em Química completo; cursando superior correlato",
+    "schedule": "Segunda a sexta, 8h às 17h48",
+    "benefits": "Assistência médica/odontológica, convênio farmácia, VA, restaurante, VT, PLR",
+    "reference": "CATHO · 38416373",
+    "link": "https://www.catho.com.br/vagas/tecnico-de-laboratorio/38416373"
+  },
+  {
+    "title": "Estágio Técnico em Química",
+    "city": "São Bernardo do Campo",
+    "company": "Indústria química (não identificada)",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Química Industrial",
+    "source": "Catho",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Testes de controle de qualidade, apoio ao laboratório, emissão de ordens",
+    "requirements": "Cursando Técnico em Química (1º ou 2º semestre)",
+    "schedule": "—",
+    "benefits": "Assistência médica/odontológica, seguro, VA, VT, PLR",
+    "reference": "CATHO · 38416585",
+    "link": "https://www.catho.com.br/vagas/estagio-tecnico-em-quimica/38416585"
+  },
+  {
+    "title": "Estágio em Química",
+    "city": "São Bernardo do Campo",
+    "company": "P&V Consultoria RH",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Química Industrial",
+    "source": "Catho",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Apoio a testes de qualidade, rotinas de laboratório, controle de processos",
+    "requirements": "Cursando Técnico em Química (1º ou 2º semestre)",
+    "schedule": "Segunda a sexta, 8h às 15h",
+    "benefits": "Vale-alimentação, vale-transporte, seguro, convênio médico",
+    "reference": "CATHO · 38352820",
+    "link": "https://www.catho.com.br/vagas/estagio-em-quimica/38352820"
+  },
+  {
+    "title": "Técnico de Laboratório Júnior",
+    "city": "Diadema",
+    "company": "Universo Tintas e Vernizes",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Tintas e Vernizes",
+    "source": "Indeed",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Ensaios de rotina (pH, densidade, viscosidade), laudos técnicos, calibração",
+    "requirements": "CRQ ativo obrigatório; Técnico em Química completo",
+    "schedule": "—",
+    "benefits": "—",
+    "reference": "INDEED · 2AB94AFB",
+    "link": "https://br.indeed.com/viewjob?jk=2ab94afbe24d135c"
+  },
+  {
+    "title": "Inspetor de Controle de Qualidade — Embalagens Flexíveis",
+    "city": "Diadema",
+    "company": "Qualyprint",
+    "type": "CLT Efetivo",
+    "typeSlug": "clt",
+    "area": "Embalagens",
+    "source": "Indeed",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Inspeções técnicas, análises cromatográficas, certificados de não conformidade",
+    "requirements": "Técnico em Química; experiência em CQ de embalagem flexível",
+    "schedule": "—",
+    "benefits": "Cesta básica, VT, VA, café, PLR, TotalPass, SESI",
+    "reference": "INDEED · 7044F283",
+    "link": "https://br.indeed.com/viewjob?jk=7044f2836c3a0b13"
+  },
+  {
+    "title": "Assistente de P&D — Embalagens Flexíveis",
+    "city": "Diadema",
+    "company": "Qualyprint",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Embalagens",
+    "source": "Indeed",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Testes laboratoriais de filmes, tintas e adesivos, análises físico-químicas",
+    "requirements": "Técnico em Química ou cursando superior correlato",
+    "schedule": "—",
+    "benefits": "—",
+    "reference": "INDEED · 7725A8CB",
+    "link": "https://br.indeed.com/viewjob?jk=7725a8cb6e69834d"
+  },
+  {
+    "title": "Assistente de Controle da Qualidade",
+    "city": "Diadema",
+    "company": "Arcade Beauty",
+    "type": "CLT Efetivo",
+    "typeSlug": "clt",
+    "area": "Cosméticos e Higiene Pessoal",
+    "source": "Indeed",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Suporte a análises físico-químicas, microbiológicas e instrumentais",
+    "requirements": "—",
+    "schedule": "—",
+    "benefits": "Assistência médica/odontológica, VT, cesta básica",
+    "reference": "INDEED · CC46921C",
+    "link": "https://br.indeed.com/viewjob?jk=cc46921c3327734e"
+  },
+  {
+    "title": "Inspetor(a) de Controle de Qualidade",
+    "city": "Diadema",
+    "company": "Renovatec Beauty",
+    "type": "CLT Efetivo",
+    "typeSlug": "clt",
+    "area": "Cosméticos e Higiene Pessoal",
+    "source": "Indeed",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Separação de amostras, inspeção de pallets, monitoramento de temperatura, auditorias",
+    "requirements": "Experiência em inspeção de linha no segmento cosmético",
+    "schedule": "—",
+    "benefits": "Assistência médica/odontológica, PLR, seguro, VT, VA",
+    "reference": "INDEED · 7C2457FF",
+    "link": "https://br.indeed.com/viewjob?jk=7c2457ffe246425f"
+  },
+  {
+    "title": "Manipulador de Produtos Químicos",
+    "city": "Diadema",
+    "company": "TGA Recursos Humanos",
+    "type": "CLT Efetivo",
+    "typeSlug": "clt",
+    "area": "Química Industrial",
+    "source": "Catho",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "—",
+    "requirements": "Ensino médio completo; experiência prévia na função",
+    "schedule": "Segunda a sexta, 7h às 17h",
+    "benefits": "Vale-transporte, vale-alimentação R$280, insalubridade 20%",
+    "reference": "CATHO · 37924105",
+    "link": "https://www.catho.com.br/vagas/manipulador-de-produtos-quimicos/37924105"
+  },
+  {
+    "title": "Auxiliar de Laboratório",
+    "city": "Mauá",
+    "company": "via Manpower",
+    "type": "Temporário",
+    "typeSlug": "temporario",
+    "area": "Química Industrial",
+    "source": "Catho",
+    "checked": "19/09/2026",
+    "batch": 3,
+    "activities": "Coleta e preparo de amostras, análises químicas e físicas, registro de dados",
+    "requirements": "Formação técnica ou bacharelado em Química com CRQ ativo",
+    "schedule": "—",
+    "benefits": "—",
+    "reference": "CATHO · 37894941",
+    "link": "https://www.catho.com.br/vagas/auxiliar-de-laboratorio/37894941"
+  },
+  {
+    "title": "Estagiário na Área de Química - Sem Experiência",
+    "city": "São Bernardo do Campo",
+    "company": "UniScientific Group (via Jobbol)",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Laboratório de Análises",
+    "source": "Indeed",
+    "checked": "21/09/2026",
+    "batch": 4,
+    "activities": "Apoiar rotinas de laboratório, preparação e organização de amostras",
+    "requirements": "Técnico em andamento; afinidade com química analítica, orgânica, ambiental ou industrial",
+    "schedule": "Meio período, presencial, horário a combinar",
+    "benefits": "A combinar em entrevista",
+    "reference": "INDEED · DF236798",
+    "link": "https://br.indeed.com/viewjob?jk=df236798daf17b44"
+  },
+  {
+    "title": "Analista de Laboratório Jr — Saúde & Nutrição",
+    "city": "São Bernardo do Campo",
+    "company": "SGS",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Metrologia, Inspeção e Certificação",
+    "source": "Indeed",
+    "checked": "21/09/2026",
+    "batch": 4,
+    "activities": "Inspecionar amostras, registrar dados em sistema, avaliar controle de qualidade",
+    "requirements": "Técnico ou superior em Química, experiência prévia em laboratório, Office básico",
+    "schedule": "Segunda a sexta, 8h às 17h, 1h de almoço",
+    "benefits": "Assistência médica/odontológica, seguro de vida, VR/VA, VT, SGS Academy, Gympass",
+    "reference": "INDEED · 64ED2322",
+    "link": "https://br.indeed.com/viewjob?jk=64ed232273780303"
+  },
+  {
+    "title": "Analista de Laboratório Jr — turno noturno",
+    "city": "São Bernardo do Campo",
+    "company": "SGS",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Metrologia, Inspeção e Certificação",
+    "source": "Indeed",
+    "checked": "21/09/2026",
+    "batch": 4,
+    "activities": "Inspeção de amostras, inserção em sistema, elaboração de relatórios",
+    "requirements": "Técnico em Química, conhecimento básico de Pacote Office",
+    "schedule": "22h às 7h, segunda a sexta (turno noturno)",
+    "benefits": "Pacote de benefícios SGS, contratação CLT, modelo presencial",
+    "reference": "INDEED · CE2A92DC",
+    "link": "https://br.indeed.com/viewjob?jk=ce2a92dccfd6c39b"
+  },
+  {
+    "title": "Auxiliar de Laboratório — turno 13h-22h",
+    "city": "São Bernardo do Campo",
+    "company": "SGS",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Metrologia, Inspeção e Certificação",
+    "source": "Indeed",
+    "checked": "21/09/2026",
+    "batch": 4,
+    "activities": "Preparar amostras e realizar ensaios químicos, físicos e mecânicos",
+    "requirements": "Técnico em Química, Pacote Office intermediário",
+    "schedule": "13h às 22h, turno integral, presencial",
+    "benefits": "Assistência médica/odontológica, seguro de vida, VR/VA, VT, SGS Academy, Gympass",
+    "reference": "INDEED · 99F83047",
+    "link": "https://br.indeed.com/viewjob?jk=99f83047fad878a2"
+  },
+  {
+    "title": "Auxiliar de Laboratório",
+    "city": "São Bernardo do Campo",
+    "company": "SGS Brasil (via SmartRecruiters)",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Metrologia, Inspeção e Certificação",
+    "source": "LinkedIn das empresas",
+    "checked": "21/09/2026",
+    "batch": 4,
+    "activities": "Preparar amostras e realizar ensaios químicos, físicos, mecânicos, dimensionais e metalográficos",
+    "requirements": "Ensino técnico em Química, especialização em Química, Office intermediário",
+    "schedule": "Segunda a sexta, 8h às 17h, intervalo 13h-14h",
+    "benefits": "Assistência médica/odontológica, seguro de vida, VR/VA, VT, SGS Academy, parcerias diversas",
+    "reference": "SMARTRECRUITERS · 744000118508887",
+    "link": "https://jobs.smartrecruiters.com/SGS/744000118508887-auxiliar-de-laboratorio-sao-bernardo-do-campo"
+  },
+  {
+    "title": "Assistente de P&D (indústria cosmética)",
+    "city": "São Caetano do Sul",
+    "company": "GAM Consultoria RH",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Cosméticos e Higiene Pessoal",
+    "source": "Indeed",
+    "checked": "21/09/2026",
+    "batch": 4,
+    "activities": "Auxiliar na preparação de fórmulas e protótipos, pesquisar matérias-primas, testes de estabilidade",
+    "requirements": "Ensino médio; experiência em P&D ou indústria cosmética/farmacêutica desejável",
+    "schedule": "—",
+    "benefits": "Vale-alimentação, vale-transporte, participação nos lucros (PLR)",
+    "reference": "INDEED · AAF67823",
+    "link": "https://br.indeed.com/viewjob?jk=aaf678231eeb8505"
+  },
+  {
+    "title": "Assistente de Pesquisa e Desenvolvimento",
+    "city": "São Bernardo do Campo",
+    "company": "Nazca Cosméticos (via Jobbol)",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Cosméticos e Higiene Pessoal",
+    "source": "Indeed",
+    "checked": "21/09/2026",
+    "batch": 4,
+    "activities": "Colaborar em P&D de novos produtos, reformulação de fórmulas, testes de estabilidade",
+    "requirements": "Ensino superior em andamento; experiência anterior em P&D é diferencial",
+    "schedule": "Flexível, 7h às 18h, saída antecipada às sextas",
+    "benefits": "Assistência médica/odontológica, seguro de vida, VA, desconto em produtos, wellhub, bolsa de estudos",
+    "reference": "INDEED · D29E7502",
+    "link": "https://br.indeed.com/viewjob?jk=d29e75029658c200"
+  },
+  {
+    "title": "Auxiliar de Produção - Indústria Química",
+    "city": "São Bernardo do Campo",
+    "company": "AMA Trabalho Temporário",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Química Industrial",
+    "source": "Indeed",
+    "checked": "21/09/2026",
+    "batch": 4,
+    "activities": "Atuar em linha de produção de empresa química ou segmento similar",
+    "requirements": "Ensino médio; experiência em linha de produção; disponibilidade total de horários",
+    "schedule": "Disponibilidade total de horários",
+    "benefits": "Vale-transporte, refeição no local",
+    "reference": "INDEED · 483B6FA6",
+    "link": "https://br.indeed.com/viewjob?jk=483b6fa65de79f73"
+  },
+  {
+    "title": "Estágio em Química",
+    "city": "São Caetano do Sul",
+    "company": "Empresa Confidencial",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Ensino e Pesquisa",
+    "source": "Catho",
+    "checked": "21/09/2026",
+    "batch": 4,
+    "activities": "Apoiar alunos em atividades escolares e colaborar em pesquisa e desenvolvimento",
+    "requirements": "Cursando licenciatura em Química; conhecimento básico em técnicas de laboratório",
+    "schedule": "—",
+    "benefits": "Tíquete alimentação, vale-transporte, participação nos lucros",
+    "reference": "CATHO · 38029449",
+    "link": "https://www.catho.com.br/vagas/estagio-em-quimica/38029449"
+  },
+  {
+    "title": "Estágio Química - Laboratório Físico Químico",
+    "city": "São Caetano do Sul",
+    "company": "Empresa Confidencial",
+    "type": "Estágio",
+    "typeSlug": "estagio",
+    "area": "Laboratório de Análises",
+    "source": "Catho",
+    "checked": "21/09/2026",
+    "batch": 4,
+    "activities": "Ensaios físico-químicos, preparo de soluções e materiais, higienização de bancadas e vidrarias",
+    "requirements": "Cursando técnico/superior em Química; formatura a partir de dez/2027; fácil acesso a São Caetano",
+    "schedule": "8h às 16h, segunda a sexta, 1h de intervalo",
+    "benefits": "Seguro de vida, tíquete refeição/alimentação, vale-transporte",
+    "reference": "CATHO · 37416110",
+    "link": "https://www.catho.com.br/vagas/estagio-quimica-laboratorio-fisico-quimico/37416110"
+  },
+  {
+    "title": "Técnico de Qualidade Jr",
+    "city": "São Bernardo do Campo",
+    "company": "Colgate-Palmolive",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Cosméticos e Higiene Pessoal",
+    "source": "Vagas.com",
+    "checked": "21/09/2026",
+    "batch": 4,
+    "activities": "Testes de controle microbiológico, preparo de meios de cultura, manutenção de equipamentos",
+    "requirements": "Técnico em Farmácia ou Química; experiência em laboratório de microbiologia",
+    "schedule": "—",
+    "benefits": "Assistência médica/odontológica, VR/VA, previdência privada, seguro de vida, VT",
+    "reference": "VAGAS.COM · 2835869",
+    "link": "https://trabalheconosco.vagas.com.br/colgate-palmolive/oportunidade/tecnico-de-qualidade-jr/2835869"
+  },
+  {
+    "title": "Manipulador de Cosméticos",
+    "city": "Diadema",
+    "company": "Arcade Beauty",
+    "type": "CLT",
+    "typeSlug": "clt",
+    "area": "Cosméticos e Higiene Pessoal",
+    "source": "Indeed",
+    "checked": "21/09/2026",
+    "batch": 4,
+    "activities": "Manipulação de produtos cosméticos e de higiene pessoal conforme especificações do cliente",
+    "requirements": "—",
+    "schedule": "Presencial",
+    "benefits": "Assistência médica/odontológica, cesta básica, vale-transporte",
+    "reference": "INDEED · B5232412",
+    "link": "https://br.indeed.com/viewjob?jk=b5232412e0f41327"
+  }
+];
 
-  /* ============ DATA ============ */
-  var DATA = [
-    {id:1,ref:"INDEED · 7D8C23E7",title:"Estágio em Química",company:"Trescal Brasil",city:"Santo André",area:"Metrologia, Inspeção e Certificação",type:"Estágio",typeSlug:"estagio",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=7d8c23e75122a97f",meta:"R$ 1.100/mês",published:"—",batch:1,checked:"08/09/2026",
-      activities:"Apoiar a calibração de equipamentos de medição, manutenção de bancos de dados e funções gerais de laboratório. Multinacional francesa de metrologia e calibração, presente em mais de 30 países.",
-      requirements:"Cursando técnico em Química, Física ou Farmácia (período noturno); pacote Office básico.",
-      schedule:"Segunda a sexta, 8h às 15h (1h de almoço).",
-      benefits:"Assistência médica/odontológica, seguro de vida, vale-refeição, vale-transporte, programa de bem-estar."},
-    {id:2,ref:"CATHO · 38113233",title:"Auxiliar de Laboratório",company:"GAM Consultoria RH",city:"Santo André",area:"Farmácia e Manipulação",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-laboratorio/38113233",meta:"Publicada em 25/08/2026",published:"25/08/2026",batch:1,checked:"08/09/2026",
-      activities:"Encapsulação de fórmulas, envase e selagem de sachês, controle de qualidade e limpeza de equipamentos, com suporte direto ao farmacêutico responsável.",
-      requirements:"Ensino médio completo; técnico em Farmácia ou Química é diferencial; experiência prévia em farmácia de manipulação ou cosmética.",
-      schedule:"11h às 20h + sábados (9h às 13h, em escala de revezamento).",
-      benefits:"—"},
-    {id:3,ref:"INDEED · 4C252AF3",title:"Estágio — Química, Engenharia Química, Farmácia",company:"SGS",city:"São Bernardo do Campo",area:"Metrologia, Inspeção e Certificação",type:"Estágio",typeSlug:"estagio",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=4c252af3b4878ebd",meta:"Rua Silva Jardim, 251",published:"—",batch:1,checked:"08/09/2026",
-      activities:"Preparação de soluções, pesagem de reagentes e controles de laboratório; preparo de amostras e acompanhamento de análises de higiene ocupacional e meio ambiente, seguindo normas ISO 17025.",
-      requirements:"Cursando ensino superior em Química, Engenharia Química ou Farmácia; conhecimento básico em pacote Office.",
-      schedule:"—", benefits:"—"},
-    {id:4,ref:"INDEED · B702ADB9",title:"Estágio em Desenvolvimento de Produto — GTC",company:"Colgate-Palmolive",city:"São Bernardo do Campo",area:"Cosméticos e Higiene Pessoal",type:"Estágio",typeSlug:"estagio",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=b702adb9ef928e4e",meta:"Conclusão a partir de 12/2028",published:"—",batch:1,checked:"08/09/2026",
-      activities:"Atuação no Centro Global de Tecnologia, apoiando o ciclo completo de inovação de produtos de higiene bucal — formulação, testes de estabilidade, análises físico-químicas e boas práticas de fabricação (BPF).",
-      requirements:"Cursando Química, Farmácia ou curso relacionado; inglês oral e escrito; Google Workspace e Microsoft Office em nível intermediário.",
-      schedule:"6h/dia (8h às 15h), presencial.", benefits:"—"},
-    {id:6,ref:"VAGAS.COM · 2833813",title:"Estágio em Laboratório de Controle de Qualidade — Tintas Decorativas",company:"Suvinil (Sherwin-Williams)",city:"São Bernardo do Campo",area:"Tintas e Vernizes",type:"Estágio",typeSlug:"estagio",source:"Vagas.com",url:"https://www.vagas.com.br/vagas/v2833813/estagio-em-laboratorio-de-controle-de-qualidade-de-tintas-decorativas",meta:"—",published:"—",batch:1,checked:"08/09/2026",
-      activities:"Apoiar ensaios físico-químicos em tintas decorativas, organização de materiais de laboratório, documentação de resultados e apoio a iniciativas de melhoria contínua.",
-      requirements:"Cursando Química ou Engenharia Química; Microsoft Office avançado é diferencial.",
-      schedule:"Segunda a sexta, 7h30 às 14h30 ou 10h às 17h (100% presencial).",
-      benefits:"Assistência médica/odontológica, bolsa-auxílio, restaurante no local, seguro de vida e vale-transporte."},
-    {id:7,ref:"CATHO · 37825353",title:"Auxiliar de Produção Química/Tintas/Plástico",company:"Grupo AMA",city:"São Bernardo do Campo",area:"Química Industrial",type:"Temporário",typeSlug:"temporario",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-producao-quimicatintasplastico-sbc/37825353",meta:"20 vagas · a partir de R$ 2.000",published:"—",batch:1,checked:"08/09/2026",
-      activities:"Operação de máquinas em linha de produção do segmento químico, de tintas ou plásticos.",
-      requirements:"Ensino médio completo; experiência em indústria química, de tintas, plásticos ou embalagens; disponibilidade de horário.",
-      schedule:"—", benefits:"Tíquete-refeição, restaurante no local e vale-transporte."},
-    {id:8,ref:"CATHO · 37104617",title:"Ajudante de Produção — Química",company:"P&V Consultoria RH",city:"São Bernardo do Campo",area:"Química Industrial",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/ajudante-de-producao-quimica/37104617",meta:"3 vagas · publicada 17/06/2026",published:"17/06/2026",batch:1,checked:"08/09/2026",
-      activities:"Pesagem de insumos, alimentação de matérias-primas, descarregamento de filtros-prensa e monitoramento de tempos de filtragem; montagem e desmontagem de equipamentos.",
-      requirements:"Ensino médio completo; experiência prévia em indústrias químicas.",
-      schedule:"Segunda a quinta, 12h às 22h; sexta, 12h às 21h.",
-      benefits:"Vale-alimentação de R$ 500, vale-refeição, seguro de vida, assistência médica e odontológica."},
-    {id:10,ref:"PORTAL IMT · 3554422",title:"Estágio Técnico em Química ou Engenharia Química",company:"Instituto Mauá de Tecnologia",city:"São Caetano do Sul",area:"Ensino e Pesquisa",type:"Estágio",typeSlug:"estagio",source:"Portal IMT",url:"https://institutomauadetecnologia.pandape.infojobs.com.br/Detail/3554422",meta:"Inscrições até 20/08/2026",published:"—",batch:1,checked:"08/09/2026",
-      activities:"Apoiar ensaios laboratoriais nas áreas de Química e Materiais, incluindo técnicas como DSC, TGA, FTIR, microscopia e fluorescência de raios X; preparo de amostras e relatórios técnicos.",
-      requirements:"Cursando técnico em Química ou Engenharia Química; disponibilidade presencial de segunda a sexta, 7h às 14h.",
-      schedule:"—", benefits:"—"},
-    {id:11,ref:"CATHO · 37178679",title:"Auxiliar de Laboratório",company:"Health Tech Laboratório",city:"São Caetano do Sul",area:"Farmácia e Manipulação",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-laboratorio/37178679",meta:"—",published:"—",batch:1,checked:"08/09/2026",
-      activities:"Lavagem, preparo e esterilização de materiais utilizados na manipulação de produtos estéreis; operação de autoclaves e manutenção da área de lavagem.",
-      requirements:"Ensino médio completo; organização e atenção a detalhes; experiência em farmácia, laboratório ou ambiente hospitalar é diferencial; residir em São Caetano do Sul ou possuir veículo próprio.",
-      schedule:"Segunda a quinta, 14h à meia-noite; sexta, 14h às 23h.", benefits:"—"},
-    {id:12,ref:"CATHO · 37480325",title:"Auxiliar de Laboratório",company:"Agroquímica Maringá",city:"Diadema",area:"Química Industrial",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-laboratorio/37480325",meta:"Publicada em 13/07/2026",published:"13/07/2026",batch:1,checked:"08/09/2026",
-      activities:"Preparar materiais e equipamentos para análises de produtos químicos; manter a limpeza do laboratório; apoiar coleta e descarte de amostras; suporte a técnicos e gestão de estoque de reagentes.",
-      requirements:"Ensino médio completo; curso técnico em Química (preferencial); experiência prévia em laboratório é diferencial; CRQ ativo.",
-      schedule:"Segunda a sexta, 8h12 às 18h.",
-      benefits:"Assistência médica/odontológica, seguro de vida, vale-refeição, cesta básica e vaga de estacionamento."},
-    {id:13,ref:"INDEED · BAC3B92D",title:"Estagiário Técnico da Garantia da Qualidade",company:"MSA Safety",city:"Diadema",area:"Equipamentos de Proteção e Segurança",type:"Estágio",typeSlug:"estagio",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=bac3b92da66e5a37",meta:"—",published:"—",batch:1,checked:"08/09/2026",
-      activities:"Apoiar rotinas de controle de qualidade, testes de desempenho, registro de resultados e atualização de indicadores (KPIs), em empresa multinacional do setor de equipamentos de proteção e segurança.",
-      requirements:"Cursando técnico em Mecânica, Instalações Elétricas, Mecatrônica, Química, Plásticos ou área correlata.",
-      schedule:"—", benefits:"—"},
-    {id:14,ref:"CATHO · 35905421",title:"Auxiliar de Laboratório",company:"Aston (materiais plásticos)",city:"Diadema",area:"Plásticos e Materiais",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-laboratorio/35905421",meta:"Atualizada em 02/07/2026",published:"02/07/2026",batch:1,checked:"08/09/2026",
-      activities:"Análises físico-químicas de materiais plásticos, coleta e preparo de amostras, operação de injetora para obtenção de corpos de prova, operação de equipamentos de laboratório.",
-      requirements:"Formação técnica em Plásticos ou Química; experiência prévia em laboratório de empresas do ramo plástico; conhecimento em normas de segurança e qualidade.",
-      schedule:"Segunda a quinta, 7h30 às 17h30; sexta, 7h30 às 16h30.",
-      benefits:"Assistência médica, odontológica, cesta básica, vale-transporte e participação nos lucros."},
-    {id:15,ref:"CATHO · 37080426",title:"Assistente Químico",company:"Moderna",city:"Mauá",area:"Química Industrial",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/assistente-quimico/37080426",meta:"—",published:"—",batch:1,checked:"08/09/2026",
-      activities:"Controle de qualidade de matérias-primas e produtos acabados; preparação de documentação técnica; operação de equipamentos e gestão de fichas técnicas.",
-      requirements:"Curso técnico em Química; mínimo de 2 anos de experiência na área química; conhecimento de FISPQ e rotulagem de produtos; normas de qualidade (ISO, ASTM, ABNT).",
-      schedule:"Segunda a sexta, 7h30 às 17h15.",
-      benefits:"Vale-combustível/vale-transporte, assistência médica, farmácia, refeições e lanches no local."},
-    {id:16,ref:"CATHO · 37940966",title:"Ajudante de Produção (Químico)",company:"Grupo AMA",city:"Mauá",area:"Química Industrial",type:"Temporário",typeSlug:"temporario",source:"Catho",url:"https://www.catho.com.br/vagas/ajudante-de-producao-quimico-maua/37940966",meta:"6 a 9 meses · a partir de R$ 2.000",published:"—",batch:1,checked:"08/09/2026",
-      activities:"Abastecimento de linha de produção e inspeção visual de produtos. Contrato temporário com possibilidade de efetivação.",
-      requirements:"—",
-      schedule:"Turnos alternados, 5h40 às 14h ou 14h às 22h35 (sábados alternados, 8h05 às 18h05).",
-      benefits:"Vale-transporte no período temporário; vale-transporte, vale-alimentação e assistência médica após efetivação."},
+var COMPANY_LINKEDIN = {
+  "Trescal Brasil": "https://www.linkedin.com/company/trescal-brasil",
+  "SGS": "https://br.linkedin.com/company/sgs-do-brasil-ltda-",
+  "SGS Brasil (via SmartRecruiters)": "https://br.linkedin.com/company/sgs-do-brasil-ltda-",
+  "Colgate-Palmolive": "https://www.linkedin.com/company/colgate-palmolive",
+  "Grupo AMA": "https://br.linkedin.com/company/grupo-ama",
+  "AMA Trabalho Temporário": "https://br.linkedin.com/company/grupo-ama",
+  "Health Tech Laboratório": "https://br.linkedin.com/company/health-tech-laboratorio",
+  "Agroquímica Maringá": "https://br.linkedin.com/company/agro-quimica-maringa",
+  "MSA Safety": "https://br.linkedin.com/company/msa-do-brasil-instrumentos-e-equipamentos-de-seguran-a",
+  "PHD do Brasil": "https://www.linkedin.com/company/phd-do-brasil",
+  "Arcade Beauty": "https://www.linkedin.com/company/arcade-beauty-brasil",
+  "Vivacor": "https://br.linkedin.com/company/vivacor-ind.-tintas-e-vernizes-ltda.",
+  "Misque Industrial (via Jobbol)": "https://br.linkedin.com/company/misque-industrial-sistemas-de-reuso",
+  "ITEB Indústria Técnica de Borrachas": "https://www.linkedin.com/company/iteb---indústria-técnica-de-borrachas-ltda",
+  "Aromat (Distribuidora de Produtos Químicos)": "https://br.linkedin.com/company/aromat-prods.-quimicos-ltda.",
+  "Universo Tintas e Vernizes": "https://br.linkedin.com/company/universotintas",
+  "Qualyprint": "https://br.linkedin.com/company/qualyprintembalagens",
+  "Renovatec Beauty": "https://br.linkedin.com/company/renovatec",
+  "Nazca Cosméticos (via Jobbol)": "https://br.linkedin.com/company/nazca-cosmeticos"
+};
 
-    {id:17,ref:"INDEED · B5F38899",title:"Estagiário na Área de Química",company:"LS Analyses (via Jobbol)",city:"Santo André",area:"Laboratório de Análises",type:"Estágio",typeSlug:"estagio",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=b5f38899ef41e5b5",meta:"—",published:"—",batch:2,checked:"14/09/2026",
-      activities:"Receber e conferir amostras, separar e organizar para análise, identificar e numerar amostras garantindo rastreabilidade, digitação de resultados e entrada de dados.",
-      requirements:"Técnico em andamento; sem experiência necessária; afinidade com laboratório/química é diferencial.",
-      schedule:"Segunda a sexta, 8h12 às 15h12 (tempo integral).",
-      benefits:"Vale-transporte e seguro de vida."},
-    {id:18,ref:"CATHO · 38323687",title:"Auxiliar de Laboratório",company:"GAM Consultoria RH",city:"Santo André",area:"Farmácia e Manipulação",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-laboratorio/38323687",meta:"Publicada em 09/09/2026",published:"09/09/2026",batch:2,checked:"14/09/2026",
-      activities:"Encapsulação de fórmulas conforme fichas técnicas, controle de peso e análise qualitativa de cápsulas, envase e selagem de sachês, controle de estoque de matérias-primas.",
-      requirements:"Ensino médio completo; técnico em Farmácia ou Química é diferencial; experiência prévia em farmácia de manipulação ou cosmética.",
-      schedule:"11h às 20h + sábados (9h às 13h, em escala de revezamento).",
-      benefits:"Restaurante na empresa e vale-transporte."},
-    {id:19,ref:"INDEED · 6D22EC04",title:"Estágio em Química",company:"Marcia Mendes",city:"São Bernardo do Campo",area:"Química Industrial",type:"Estágio",typeSlug:"estagio",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=6d22ec0462850da5",meta:"R$ 594 a R$ 1.300/mês",published:"—",batch:2,checked:"14/09/2026",
-      activities:"Realizar testes de controle de qualidade em produtos e matérias-primas; apoiar laboratório de produção; emitir e acompanhar ordens de produção; organizar amostras e documentação técnica.",
-      requirements:"Cursando técnico em Química (1º ou 2º semestre); interesse em laboratório e produção; perfil organizado.",
-      schedule:"Segunda a sexta, 8h às 15h.", benefits:"—"},
-    {id:20,ref:"INDEED · 37A92730",title:"Estagiário Técnico na Área de Química",company:"Jobbol (Entusiasmo RH)",city:"São Bernardo do Campo",area:"Química Industrial",type:"Estágio",typeSlug:"estagio",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=37a92730727d2d3f",meta:"R$ 1.300/mês",published:"—",batch:2,checked:"14/09/2026",
-      activities:"Controle de qualidade, apoio às rotinas laboratoriais, emissão e acompanhamento de ordens de produção, organização de amostras.",
-      requirements:"Técnico em andamento; sem experiência exigida; experiência anterior em química analítica, industrial ou laboratório químico é positiva.",
-      schedule:"Meio período, segunda a sexta, 8h às 15h.",
-      benefits:"Convênio médico, seguro de vida, vale-transporte, vale-alimentação de R$ 523."},
-    {id:21,ref:"CATHO · 38345762",title:"Auxiliar de Controle de Qualidade — Laboratório Químico (Tintas)",company:"Grupo AMA",city:"São Bernardo do Campo",area:"Tintas e Vernizes",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-controle-de-qualidade-laboratorio-quimico-tintas/38345762",meta:"Publicada em 10/09/2026",published:"10/09/2026",batch:2,checked:"14/09/2026",
-      activities:"Realizar análises e testes de qualidade em produtos de tintas; documentar resultados e acompanhar padrões; colaborar com equipes técnicas para conformidade normativa.",
-      requirements:"Experiência em controle de qualidade laboratorial; conhecimento em normas de qualidade e boas práticas laboratoriais.",
-      schedule:"—", benefits:"Restaurante na empresa e vale-transporte."},
-    {id:22,ref:"CATHO · 38012175",title:"Estágio Técnico em Química",company:"Indústria química de grande porte",city:"São Bernardo do Campo",area:"Química Industrial",type:"Estágio",typeSlug:"estagio",source:"Catho",url:"https://www.catho.com.br/vagas/estagio-tecnico-em-quimica/38012175",meta:"R$ 1.300/mês",published:"—",batch:2,checked:"14/09/2026",
-      activities:"Controle de qualidade em laboratório; execução de ensaios técnicos e testes operacionais; monitoramento do forno contínuo na área de Cádmio; metodologia 5S.",
-      requirements:"Cursando técnico em Química, obrigatoriamente 1º ou 2º semestre; disponibilidade presencial no bairro Cooperativa.",
-      schedule:"Segunda a sexta, 8h às 15h (1h de intervalo).",
-      benefits:"Seguro de vida em grupo, tíquete-alimentação e vale-transporte."},
-    {id:23,ref:"CATHO · 37480407",title:"Analista de Laboratório Júnior",company:"Richard Saigh",city:"São Caetano do Sul",area:"Laboratório de Análises",type:"CLT Efetivo",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/analista-de-laboratorio-junior/37480407",meta:"Publicada em 13/07/2026",published:"13/07/2026",batch:2,checked:"14/09/2026",
-      activities:"Planejar o trabalho de apoio do laboratório; preparar soluções e equipamentos para medição e ensaios; analisar amostras de insumos e matérias-primas, incluindo trigo/farinha; emitir relatórios semanais.",
-      requirements:"Ensino médio completo; curso técnico na área.",
-      schedule:"Segunda a sexta (8h às 17h) e sábado (8h às 12h).",
-      benefits:"Assistência médica e odontológica, tíquete-refeição, tíquete-alimentação e vale-transporte."},
-    {id:24,ref:"CATHO · 37117468",title:"Auxiliar de Laboratório Jr",company:"PHD do Brasil",city:"São Caetano do Sul",area:"Farmácia e Manipulação",type:"CLT Efetivo",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-laboratorio-jr/37117468",meta:"Publicada em 18/06/2026",published:"18/06/2026",batch:2,checked:"14/09/2026",
-      activities:"Lavagem de vidrarias, frascos e ampolas; esterilização de materiais; limpeza de fluxos laminares e bancadas; transferência de produtos após autoclavação.",
-      requirements:"Experiência prévia na área; conhecimento de normas de higiene e segurança.",
-      schedule:"—", benefits:"Assistência odontológica, convênio com farmácia e vale-transporte."},
-    {id:25,ref:"INDEED · 46983199",title:"Estágio de Pesquisa e Desenvolvimento",company:"Arcade Beauty",city:"Diadema",area:"Cosméticos e Higiene Pessoal",type:"Estágio",typeSlug:"estagio",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=46983199dd1cc79b",meta:"R$ 1.800 a R$ 2.200/mês",published:"—",batch:2,checked:"14/09/2026",
-      activities:"Atuar em Pesquisa & Desenvolvimento, dando suporte à reprodução e manipulação de fórmulas cosméticas, acompanhamento de estabilidade e análises físico-químicas.",
-      requirements:"Cursando Química, Farmácia ou área correlata; levantamento de dados sobre matérias-primas e mercado.",
-      schedule:"—", benefits:"Vale-transporte e cesta básica."},
-    {id:26,ref:"INDEED · 8B24A6E6",title:"Estágio de Controle de Qualidade",company:"Arcade Beauty",city:"Diadema",area:"Cosméticos e Higiene Pessoal",type:"Estágio",typeSlug:"estagio",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=8b24a6e6d01b02fd",meta:"R$ 1.800 a R$ 2.200/mês",published:"—",batch:2,checked:"14/09/2026",
-      activities:"Atuar em Controle de Qualidade, dando suporte às análises físico-químicas, microbiológicas e instrumentais para garantir conformidade de insumos e produtos finais.",
-      requirements:"Cursando área correlata; conhecimento em análises laboratoriais, documentação e retenção de produtos.",
-      schedule:"—", benefits:"Vale-transporte e cesta básica."},
-    {id:27,ref:"CATHO · 38316130",title:"Auxiliar de Laboratório",company:"Vivacor",city:"Diadema",area:"Tintas e Vernizes",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-laboratorio/38316130",meta:"Publicada em 08/09/2026",published:"08/09/2026",batch:2,checked:"14/09/2026",
-      activities:"Analisar semiacabados e acabados quanto a tonalidade, força e viscosidade; acompanhar cromatografia; suporte na documentação de boletins técnicos; controlar qualidade de tintas (aderência, secagem, cor, viscosidade).",
-      requirements:"CRQ necessário; sem experiência prévia exigida.",
-      schedule:"Segunda a quinta, 12h às 22h; sexta, 12h às 21h.",
-      benefits:"Assistência médica, odontológica, convênio farmácia, vale-alimentação, vale-transporte e participação nos lucros."},
+var ICON_CHECK = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M3.6 6.1l1.6 1.6 3.2-3.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var ICON_ARROW = '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2.5 8.5l6-6M4 2.5h4.5V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var ICON_PIN = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 11s4-3.6 4-6.6A4 4 0 106 8.4 4 4 0 006 11z" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="4.6" r="1.3" stroke="currentColor" stroke-width="1.1"/></svg>';
+var ICON_BLD = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1.5" y="1.5" width="9" height="9" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M4 4h1M7 4h1M4 6.3h1M7 6.3h1M4 8.6h1M7 8.6h1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>';
 
-    {id:28,ref:"CATHO · 38421534",title:"Técnico de Laboratório de Farmácia",company:"GAM Consultoria RH",city:"Santo André",area:"Farmácia e Manipulação",type:"CLT Efetivo",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/tecnico-de-laboratorio-de-farmacia/38421534",meta:"A partir de R$ 2.000",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Preparação de amostras e manipulação dermatológica, pesagem de ativos para cremes, loções e cápsulas, verificação de qualidade do produto final, fórmulas personalizadas sob supervisão farmacêutica.",
-      requirements:"Experiência em laboratório farmacêutico; conhecimento em dermatologia.",
-      schedule:"Segunda a sexta, 8h às 17h; sábados, 9h às 13h.",
-      benefits:"Vale-transporte, restaurante na empresa, convênio médico, treinamentos."},
-    {id:29,ref:"CATHO · 37685369",title:"Auxiliar Técnico de Manipulação de Laboratório de Farmácia",company:"GAM Consultoria RH",city:"Santo André",area:"Farmácia e Manipulação",type:"CLT Efetivo",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-tecnico-de-manipulacao-de-laboratorio-de-farmacia/37685369",meta:"Até R$ 2.000",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Manipulação farmacêutica, pesagem de ativos, preparo de fórmulas sob supervisão farmacêutica, controle de estoque de matéria-prima.",
-      requirements:"Experiência em laboratório farmacêutico.",
-      schedule:"Segunda a sexta, 8h às 17h; sábados, 9h às 13h.",
-      benefits:"Refeição no local e vale-transporte."},
-    {id:30,ref:"CATHO · 38029844",title:"Estágio em Engenharia Química (Processos)",company:"Willisa",city:"Santo André",area:"Química Industrial",type:"Estágio",typeSlug:"estagio",source:"Catho",url:"https://www.catho.com.br/vagas/estagio-em-engenharia-quimica-area-de-processos/38029844",meta:"R$ 2.000/mês",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Acompanhar processos produtivos, coletar e analisar dados operacionais, apoiar indicadores de desempenho e qualidade, projetos de melhoria contínua.",
-      requirements:"Cursando Engenharia Química; inglês intermediário; Excel avançado.",
-      schedule:"—",
-      benefits:"Assistência médica/odontológica, seguro de vida, estacionamento, restaurante."},
-    {id:31,ref:"INDEED · 3950E6B8",title:"Técnico em Química",company:"Misque Industrial (via Jobbol)",city:"São Bernardo do Campo",area:"Tratamento de Água Industrial",type:"CLT Efetivo",typeSlug:"clt",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=3950e6b857fb58b3",meta:"—",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Análises químicas de matérias-primas e produtos, operação de instrumentos de laboratório, documentação de resultados.",
-      requirements:"Técnico em Química completo; experiência anterior na função.",
-      schedule:"—", benefits:"—"},
-    {id:32,ref:"INDEED · 6BF2548D",title:"Analista de Laboratório Júnior",company:"SGS",city:"São Bernardo do Campo",area:"Metrologia, Inspeção e Certificação",type:"CLT",typeSlug:"clt",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=6bf2548dc03396cd",meta:"—",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Preparo de materiais e amostras, execução de análises, documentação técnica, gestão de estoque de laboratório.",
-      requirements:"Técnico em Química ou área afim; Office intermediário.",
-      schedule:"Terça a sábado, 8h às 17h.",
-      benefits:"Assistência médica/odontológica, seguro de vida, vale-alimentação/refeição/transporte, SGS Academy, Gympass."},
-    {id:33,ref:"INDEED · 77D76645",title:"Auxiliar de Laboratório",company:"SGS",city:"São Bernardo do Campo",area:"Metrologia, Inspeção e Certificação",type:"CLT",typeSlug:"clt",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=77d766457002c396",meta:"—",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Preparo de amostras e execução de ensaios químicos, físicos e mecânicos.",
-      requirements:"Ensino técnico completo com especialização em Química.",
-      schedule:"Segunda a sexta, 8h às 17h.",
-      benefits:"Assistência médica/odontológica, seguro de vida, vale-alimentação/refeição/transporte, SGS Academy, Gympass."},
-    {id:34,ref:"INDEED · 363A1DB0",title:"Assistente de Laboratório",company:"SGS",city:"São Bernardo do Campo",area:"Metrologia, Inspeção e Certificação",type:"CLT",typeSlug:"clt",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=363a1db0a82c1af7",meta:"—",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Lavagem de vidrarias, preparo de soluções, pesagem e extração de amostras, registro de controle de qualidade.",
-      requirements:"Técnico em Química, Farmácia, Polímeros ou Análises Químicas.",
-      schedule:"Terça a sábado, 8h às 17h.",
-      benefits:"Assistência médica/odontológica, seguro de vida, vale-alimentação/refeição/transporte, SGS Academy, Gympass."},
-    {id:35,ref:"INDEED · 4ECA6F6B",title:"Técnico de Laboratório Pleno",company:"ITEB Indústria Técnica de Borrachas",city:"São Bernardo do Campo",area:"Borracha e Materiais Técnicos",type:"CLT",typeSlug:"clt",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=4eca6f6be84ecab6",meta:"R$ 3.012,90",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Ensaios laboratoriais, análise de resultados, apoio ao controle técnico de matérias-primas, operação de balanças e durômetro.",
-      requirements:"—", schedule:"—", benefits:"—"},
-    {id:36,ref:"CATHO · 38416373",title:"Técnico de Laboratório Júnior",company:"Aromat (Distribuidora de Produtos Químicos)",city:"São Bernardo do Campo",area:"Distribuição de Produtos Químicos",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/tecnico-de-laboratorio/38416373",meta:"A partir de R$ 3.000",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Preparo e controle de amostras, ensaios de bancada, relatórios técnicos, controle de estoque de laboratório, registro em ERP.",
-      requirements:"Técnico em Química completo; cursando superior em Química ou Engenharia Química.",
-      schedule:"Segunda a sexta, 8h às 17h48.",
-      benefits:"Assistência médica/odontológica, convênio farmácia, seguro de vida, vale-alimentação, estacionamento, restaurante, vale-transporte, PLR."},
-    {id:37,ref:"CATHO · 38416585",title:"Estágio Técnico em Química",company:"Indústria química (não identificada)",city:"São Bernardo do Campo",area:"Química Industrial",type:"Estágio",typeSlug:"estagio",source:"Catho",url:"https://www.catho.com.br/vagas/estagio-tecnico-em-quimica/38416585",meta:"R$ 1.300/mês",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Testes de controle de qualidade em produtos e matérias-primas, apoio ao laboratório de produção, emissão de ordens de produção, controles de processo.",
-      requirements:"Cursando Técnico em Química (1º ou 2º semestre).",
-      schedule:"—",
-      benefits:"Assistência médica/odontológica, seguro de vida, vale-alimentação, vale-transporte, PLR."},
-    {id:38,ref:"CATHO · 38352820",title:"Estágio em Química",company:"P&V Consultoria RH",city:"São Bernardo do Campo",area:"Química Industrial",type:"Estágio",typeSlug:"estagio",source:"Catho",url:"https://www.catho.com.br/vagas/estagio-em-quimica/38352820",meta:"R$ 1.300/mês",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Apoio em testes de qualidade, rotinas de laboratório, controle de processos, documentação.",
-      requirements:"Cursando Técnico em Química (1º ou 2º semestre).",
-      schedule:"Segunda a sexta, 8h às 15h.",
-      benefits:"Vale-alimentação de R$ 523, vale-transporte, seguro de vida, convênio médico."},
-    {id:39,ref:"INDEED · 2AB94AFB",title:"Técnico de Laboratório Júnior",company:"Universo Tintas e Vernizes",city:"Diadema",area:"Tintas e Vernizes",type:"CLT",typeSlug:"clt",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=2ab94afbe24d135c",meta:"R$ 3.400,02",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Ensaios de rotina (pH, densidade, viscosidade), laudos técnicos, calibração e manutenção de equipamentos, controle de estoque, descarte seguro.",
-      requirements:"CRQ ativo obrigatório; Técnico em Química completo.",
-      schedule:"—", benefits:"—"},
-    {id:40,ref:"INDEED · 7044F283",title:"Inspetor de Controle de Qualidade — Embalagens Flexíveis",company:"Qualyprint",city:"Diadema",area:"Embalagens",type:"CLT Efetivo",typeSlug:"clt",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=7044f2836c3a0b13",meta:"R$ 3.858,40 · meio período",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Inspeções técnicas, análises cromatográficas de impressão e solventes, certificados de não conformidade.",
-      requirements:"Técnico em Química ou área correlata; experiência em controle de qualidade de embalagem flexível.",
-      schedule:"—",
-      benefits:"Cesta básica, vale-transporte, vale-alimentação, café, PLR, TotalPass, SESI."},
-    {id:41,ref:"INDEED · 7725A8CB",title:"Assistente de P&D — Embalagens Flexíveis",company:"Qualyprint",city:"Diadema",area:"Embalagens",type:"CLT",typeSlug:"clt",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=7725a8cb6e69834d",meta:"R$ 2.614,67",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Testes laboratoriais de filmes, tintas e adesivos, análises físico-químicas, relatórios técnicos, desenvolvimento e validação de produtos.",
-      requirements:"Técnico em Química ou cursando superior correlato.",
-      schedule:"—", benefits:"—"},
-    {id:42,ref:"INDEED · CC46921C",title:"Assistente de Controle da Qualidade",company:"Arcade Beauty",city:"Diadema",area:"Cosméticos e Higiene Pessoal",type:"CLT Efetivo",typeSlug:"clt",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=cc46921c3327734e",meta:"R$ 2.766,16",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Suporte a análises físico-químicas, microbiológicas e instrumentais de insumos e produto final.",
-      requirements:"—",
-      schedule:"—",
-      benefits:"Assistência médica/odontológica, vale-transporte, cesta básica."},
-    {id:43,ref:"INDEED · 7C2457FF",title:"Inspetor(a) de Controle de Qualidade",company:"Renovatec Beauty",city:"Diadema",area:"Cosméticos e Higiene Pessoal",type:"CLT Efetivo",typeSlug:"clt",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=7c2457ffe246425f",meta:"R$ 2.940,28",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Separação e liberação de amostras (EPA e padrão), inspeção de pallets, monitoramento de temperatura, auditorias, coleta de amostras e testes laboratoriais.",
-      requirements:"Experiência em inspeção de linha no segmento cosmético.",
-      schedule:"—",
-      benefits:"Assistência médica/odontológica, PLR, seguro de vida, vale-transporte, vale-alimentação."},
-    {id:44,ref:"CATHO · 37924105",title:"Manipulador de Produtos Químicos",company:"TGA Recursos Humanos",city:"Diadema",area:"Química Industrial",type:"CLT Efetivo",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/manipulador-de-produtos-quimicos/37924105",meta:"—",published:"—",batch:3,checked:"19/09/2026",
-      activities:"—",
-      requirements:"Ensino médio completo; experiência prévia na função.",
-      schedule:"Segunda a sexta, 7h às 17h.",
-      benefits:"Vale-transporte, vale-alimentação de R$ 280, insalubridade de 20%."},
-    {id:45,ref:"CATHO · 37894941",title:"Auxiliar de Laboratório",company:"via Manpower (cliente não identificado)",city:"Mauá",area:"Química Industrial",type:"Temporário",typeSlug:"temporario",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-laboratorio/37894941",meta:"R$ 2.000 · também para PCD",published:"—",batch:3,checked:"19/09/2026",
-      activities:"Coleta e preparo de amostras, análises químicas e físicas, registro de dados.",
-      requirements:"Formação técnica ou bacharelado em Química com CRQ ativo.",
-      schedule:"—", benefits:"—"}
+var LATEST_BATCH = Math.max.apply(null, DATA.map(function(d){return d.batch;}));
+var LATEST_CHECKED = DATA.filter(function(d){return d.batch===LATEST_BATCH;}).map(function(d){return d.checked;})[0] || "";
+
+var CITIES = [];
+DATA.forEach(function(d){ if(CITIES.indexOf(d.city)===-1) CITIES.push(d.city); });
+
+var state = {
+  cities: [],
+  types: [],
+  area: "",
+  company: "",
+  source: "",
+  sort: "recent",
+  open: {}
+};
+
+function uniqueSorted(arr){
+  var seen = [];
+  arr.forEach(function(v){ if(v && seen.indexOf(v)===-1) seen.push(v); });
+  seen.sort(function(a,b){return a.localeCompare(b,'pt-BR');});
+  return seen;
+}
+
+function typeLabel(slug){
+  if(slug==="estagio") return "Estágio";
+  if(slug==="clt") return "CLT";
+  if(slug==="temporario") return "Temporário";
+  return slug;
+}
+
+function renderStats(){
+  var total = DATA.length;
+  var cities = CITIES.length;
+  var estagio = DATA.filter(function(d){return d.typeSlug==="estagio";}).length;
+  var cltTemp = DATA.filter(function(d){return d.typeSlug==="clt"||d.typeSlug==="temporario";}).length;
+  var tiles = [
+    {n:total,l:"Vagas ativas",cls:"hero"},
+    {n:cities,l:"Cidades",cls:""},
+    {n:estagio,l:"Estágio",cls:""},
+    {n:cltTemp,l:"CLT / Temporário",cls:""}
   ];
+  document.getElementById('statsSection').innerHTML = tiles.map(function(t){
+    return '<div class="stat-tile '+t.cls+'"><span class="n">'+t.n+'</span><span class="l">'+t.l+'</span></div>';
+  }).join('');
+}
 
-  var CITIES = ["Santo André","São Bernardo do Campo","São Caetano do Sul","Diadema","Mauá"];
-  var TYPES = [["estagio","Estágio"],["clt","CLT"],["temporario","Temporário"]];
-  var AREAS = Array.from(new Set(DATA.map(function(d){return d.area;}))).sort();
-  var SOURCES = Array.from(new Set(DATA.map(function(d){return d.source;}))).sort();
-  var COMPANIES = Array.from(new Set(DATA.map(function(d){return d.company;}))).sort();
-  var LATEST_BATCH = Math.max.apply(null, DATA.map(function(d){return d.batch;}));
-  var LATEST_CHECKED = DATA.filter(function(d){return d.batch===LATEST_BATCH;}).map(function(d){return d.checked;})[0] || "";
+function renderCityBars(){
+  var counts = {};
+  DATA.forEach(function(d){ counts[d.city]=(counts[d.city]||0)+1; });
+  var rows = Object.keys(counts).map(function(c){return {city:c,count:counts[c]};});
+  rows.sort(function(a,b){return b.count-a.count;});
+  var max = rows.length ? rows[0].count : 1;
+  document.getElementById('cityBars').innerHTML = rows.map(function(r,i){
+    var pct = Math.max(6, Math.round((r.count/max)*100));
+    return '<div class="bar-row">'+
+      '<span class="city-l">'+r.city+'</span>'+
+      '<span class="bar-track"><span class="bar-fill'+(i===0?' top':'')+'" style="width:'+pct+'%"></span></span>'+
+      '<span class="count">'+r.count+'</span>'+
+    '</div>';
+  }).join('');
+}
+
+function renderChips(){
+  var cityHtml = CITIES.map(function(c){
+    var active = state.cities.indexOf(c)>-1;
+    return '<button type="button" class="chip'+(active?' active':'')+'" data-city="'+c+'">'+c+'</button>';
+  }).join('');
+  document.getElementById('cityChips').innerHTML = cityHtml;
+
+  var types = ["estagio","clt","temporario"];
+  var typeHtml = types.map(function(t){
+    var active = state.types.indexOf(t)>-1;
+    return '<button type="button" class="chip'+(active?' active':'')+'" data-type="'+t+'">'+typeLabel(t)+'</button>';
+  }).join('');
+  document.getElementById('typeChips').innerHTML = typeHtml;
+
+  document.querySelectorAll('#cityChips .chip').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var c = btn.getAttribute('data-city');
+      var idx = state.cities.indexOf(c);
+      if(idx>-1) state.cities.splice(idx,1); else state.cities.push(c);
+      renderChips(); renderCards();
+    });
+  });
+  document.querySelectorAll('#typeChips .chip').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var t = btn.getAttribute('data-type');
+      var idx = state.types.indexOf(t);
+      if(idx>-1) state.types.splice(idx,1); else state.types.push(t);
+      renderChips(); renderCards();
+    });
+  });
+}
+
+function fillSelect(id, values, placeholder){
+  var el = document.getElementById(id);
+  el.innerHTML = '<option value="">'+placeholder+'</option>' + values.map(function(v){
+    return '<option value="'+v.replace(/"/g,'&quot;')+'">'+v+'</option>';
+  }).join('');
+}
+
+function initSelects(){
+  fillSelect('areaSelect', uniqueSorted(DATA.map(function(d){return d.area;})), 'Todas as áreas');
+  fillSelect('companySelect', uniqueSorted(DATA.map(function(d){return d.company;})), 'Todas as empresas');
+  fillSelect('sourceSelect', uniqueSorted(DATA.map(function(d){return d.source;})), 'Todas as fontes');
+
+  document.getElementById('areaSelect').addEventListener('change', function(e){ state.area = e.target.value; renderCards(); });
+  document.getElementById('companySelect').addEventListener('change', function(e){ state.company = e.target.value; renderCards(); });
+  document.getElementById('sourceSelect').addEventListener('change', function(e){ state.source = e.target.value; renderCards(); });
+  document.getElementById('sortSelect').addEventListener('change', function(e){ state.sort = e.target.value; renderCards(); });
+}
+
+function filteredData(){
+  return DATA.filter(function(d){
+    if(state.cities.length && state.cities.indexOf(d.city)===-1) return false;
+    if(state.types.length && state.types.indexOf(d.typeSlug)===-1) return false;
+    if(state.area && d.area!==state.area) return false;
+    if(state.company && d.company!==state.company) return false;
+    if(state.source && d.source!==state.source) return false;
+    return true;
+  });
+}
+
+function sortData(list){
+  var copy = list.slice();
+  if(state.sort==="city"){
+    copy.sort(function(a,b){return a.city.localeCompare(b.city,'pt-BR') || a.title.localeCompare(b.title,'pt-BR');});
+  } else if(state.sort==="company"){
+    copy.sort(function(a,b){return a.company.localeCompare(b.company,'pt-BR');});
+  } else if(state.sort==="title"){
+    copy.sort(function(a,b){return a.title.localeCompare(b.title,'pt-BR');});
+  } else {
+    copy.sort(function(a,b){
+      if(b.batch!==a.batch) return b.batch-a.batch;
+      return DATA.indexOf(b) - DATA.indexOf(a);
+    });
+  }
+  return copy;
+}
+
+function detailRow(label, value){
+  if(!value || value==="—") return '';
+  return '<div class="detail-row"><b>'+label+'.</b> '+value+'</div>';
+}
+
+function cardHtml(d, idx){
+  var isNew = d.batch === LATEST_BATCH;
+  var isOpen = !!state.open[idx];
+  var companyUrl = COMPANY_LINKEDIN[d.company];
+  var badgeRow = '<span class="badge '+d.typeSlug+'">'+d.type+'</span>' +
+    '<span class="badge-row">' +
+      (isNew ? '<span class="new-pill">NOVA · '+LATEST_CHECKED.slice(0,5)+'</span>' : '') +
+      '<span class="ref-tag">'+d.reference+'</span>' +
+    '</span>';
+
+  var detail = '';
+  if(isOpen){
+    detail = '<div class="card-detail-inner">' +
+      detailRow('Atividades', d.activities) +
+      detailRow('Requisitos', d.requirements) +
+      detailRow('Horário', d.schedule) +
+      detailRow('Benefícios', d.benefits) +
+      '<div class="apply-row">' +
+        '<span class="source-tag">via '+d.source+'</span>' +
+        '<span class="right-links">' +
+          (companyUrl ? '<a class="company-link" href="'+companyUrl+'" target="_blank" rel="noopener">Ver empresa no LinkedIn '+ICON_ARROW+'</a>' : '') +
+          '<a class="apply-link" href="'+d.link+'" target="_blank" rel="noopener">Candidatar-se '+ICON_ARROW+'</a>' +
+        '</span>' +
+      '</div>' +
+    '</div>';
+  }
+
+  return '<div class="card" data-type="'+d.typeSlug+'" data-open="'+isOpen+'">' +
+    '<div class="card-head" data-idx="'+idx+'">' +
+      '<div class="card-badges">'+badgeRow+'</div>' +
+      '<div class="card-main">' +
+        '<h3 class="card-title">'+d.title+'</h3>' +
+        '<div class="card-meta">' +
+          '<span>'+ICON_PIN+' '+d.city+'</span>' +
+          '<span>'+ICON_BLD+' '+d.company+'</span>' +
+          '<span class="checked-on">'+ICON_CHECK+' Verificado '+d.checked+'</span>' +
+        '</div>' +
+      '</div>' +
+      '<span class="area-tag">'+d.area+'</span>' +
+      '<span class="chev"><svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 1.2l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
+    '</div>' +
+    '<div class="card-detail">'+detail+'</div>' +
+  '</div>';
+}
+
+function renderCards(){
+  var list = sortData(filteredData());
+  var container = document.getElementById('cardsContainer');
+  document.getElementById('countShown').textContent = list.length;
   document.getElementById('countTotal').textContent = DATA.length;
-
-  /* LinkedIn oficial das empresas química confirmadas (lista mestra da skill vagas-quimica-grande-abc).
-     Agências de recrutamento (GAM, P&V, Richard Saigh, Marcia Mendes, Jobbol, TGA RH, Manpower) e
-     empregadores não identificados ficam de fora de propósito — sem link para não arriscar um LinkedIn errado. */
-  var COMPANY_LINKEDIN = {
-    "Trescal Brasil":"https://www.linkedin.com/company/trescal-brasil",
-    "SGS":"https://br.linkedin.com/company/sgs-do-brasil-ltda-",
-    "Colgate-Palmolive":"https://www.linkedin.com/company/colgate-palmolive",
-    "Suvinil (Sherwin-Williams)":"https://www.linkedin.com/company/sherwin-williams-do-brasil-ind%C3%BAstria-e-com%C3%A9rcio",
-    "Grupo AMA":"https://br.linkedin.com/company/grupo-ama",
-    "Instituto Mauá de Tecnologia":"https://br.linkedin.com/school/instituto-maua-de-tecnologia/",
-    "Health Tech Laboratório":"https://br.linkedin.com/company/health-tech-laboratorio",
-    "Agroquímica Maringá":"https://br.linkedin.com/company/agro-quimica-maringa",
-    "MSA Safety":"https://br.linkedin.com/company/msa-do-brasil-instrumentos-e-equipamentos-de-seguran-a",
-    "Aston (materiais plásticos)":"https://www.linkedin.com/company/aston-industria-e-comercio-de-resinas-termoplasticas",
-    "PHD do Brasil":"https://www.linkedin.com/company/phd-do-brasil",
-    "Arcade Beauty":"https://www.linkedin.com/company/arcade-beauty-brasil",
-    "Vivacor":"https://br.linkedin.com/company/vivacor-ind.-tintas-e-vernizes-ltda.",
-    "Misque Industrial (via Jobbol)":"https://br.linkedin.com/company/misque-industrial-sistemas-de-reuso",
-    "ITEB Indústria Técnica de Borrachas":"https://www.linkedin.com/company/iteb---ind%C3%BAstria-t%C3%A9cnica-de-borrachas-ltda",
-    "Aromat (Distribuidora de Produtos Químicos)":"https://br.linkedin.com/company/aromat-prods.-quimicos-ltda.",
-    "Universo Tintas e Vernizes":"https://br.linkedin.com/company/universotintas",
-    "Qualyprint":"https://br.linkedin.com/company/qualyprintembalagens",
-    "Renovatec Beauty":"https://br.linkedin.com/company/renovatec"
-  };
-
-  var state = { q:"", cities:[], types:[], area:"all", company:"all", source:"all", sort:"recent" };
-
-  /* ============ ICONS ============ */
-  var ICON_PIN = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 11S10 7.4 10 4.7A4 4 0 002 4.7C2 7.4 6 11 6 11z" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="4.6" r="1.4" stroke="currentColor" stroke-width="1.1"/></svg>';
-  var ICON_BLD = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="1.5" width="8" height="9" rx="0.6" stroke="currentColor" stroke-width="1.1"/><path d="M4.2 4h.01M4.2 6h.01M4.2 8h.01M7.8 4h.01M7.8 6h.01M7.8 8h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>';
-  var ICON_ARROW = '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2.5 8.5l6-6M4 2.5h4.5V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  var ICON_CHECK = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.1"/><path d="M3.6 6.1l1.6 1.6 3.2-3.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-
-  /* ============ BUILD FILTER CONTROLS (multi-select chips) ============ */
-  function chip(label, pressed){
-    return '<button type="button" class="chip" aria-pressed="'+pressed+'">'+label+'</button>';
+  if(!list.length){
+    container.innerHTML = '<div class="empty-state">Nenhuma vaga encontrada com esses filtros. Tente limpar os filtros.</div>';
+    return;
   }
-  var cityChipsEl = document.getElementById('cityChips');
-  cityChipsEl.innerHTML = chip('Todas', true) + CITIES.map(function(c){return chip(c,false);}).join('');
-  var typeChipsEl = document.getElementById('typeChips');
-  typeChipsEl.innerHTML = chip('Todos', true) + TYPES.map(function(t){return chip(t[1],false);}).join('');
+  container.innerHTML = list.map(function(d){
+    var idx = DATA.indexOf(d);
+    return cardHtml(d, idx);
+  }).join('');
 
-  var areaSelect = document.getElementById('areaSelect');
-  areaSelect.innerHTML = '<option value="all">Todas as áreas</option>' + AREAS.map(function(a){return '<option value="'+a+'">'+a+'</option>';}).join('');
-  var companySelect = document.getElementById('companySelect');
-  companySelect.innerHTML = '<option value="all">Todas as empresas</option>' + COMPANIES.map(function(c){return '<option value="'+c+'">'+c+'</option>';}).join('');
-  var sourceSelect = document.getElementById('sourceSelect');
-  sourceSelect.innerHTML = '<option value="all">Todas as fontes</option>' + SOURCES.map(function(s){return '<option value="'+s+'">'+s+'</option>';}).join('');
-
-  function updateChipPressed(container, items, selected){
-    Array.prototype.forEach.call(container.children, function(c,i){
-      if(i===0){ c.setAttribute('aria-pressed', selected.length===0 ? 'true':'false'); }
-      else{ c.setAttribute('aria-pressed', selected.indexOf(items[i-1])!==-1 ? 'true':'false'); }
+  document.querySelectorAll('.card-head').forEach(function(head){
+    head.addEventListener('click', function(){
+      var idx = head.getAttribute('data-idx');
+      state.open[idx] = !state.open[idx];
+      renderCards();
     });
-  }
-
-  cityChipsEl.addEventListener('click', function(e){
-    var btn = e.target.closest('.chip'); if(!btn) return;
-    var idx = Array.prototype.indexOf.call(cityChipsEl.children, btn);
-    if(idx===0){ state.cities = []; }
-    else{
-      var c = CITIES[idx-1];
-      var pos = state.cities.indexOf(c);
-      if(pos===-1) state.cities.push(c); else state.cities.splice(pos,1);
-    }
-    updateChipPressed(cityChipsEl, CITIES, state.cities); render();
   });
-  typeChipsEl.addEventListener('click', function(e){
-    var btn = e.target.closest('.chip'); if(!btn) return;
-    var idx = Array.prototype.indexOf.call(typeChipsEl.children, btn);
-    if(idx===0){ state.types = []; }
-    else{
-      var slug = TYPES[idx-1][0];
-      var pos = state.types.indexOf(slug);
-      if(pos===-1) state.types.push(slug); else state.types.splice(pos,1);
-    }
-    updateChipPressed(typeChipsEl, TYPES.map(function(t){return t[0];}), state.types); render();
-  });
-  areaSelect.addEventListener('change', function(){ state.area = areaSelect.value; render(); });
-  companySelect.addEventListener('change', function(){ state.company = companySelect.value; render(); });
-  sourceSelect.addEventListener('change', function(){ state.source = sourceSelect.value; render(); });
-  document.getElementById('sortSelect').addEventListener('change', function(e){ state.sort = e.target.value; render(); });
-  document.getElementById('search').addEventListener('input', function(e){ state.q = e.target.value.trim().toLowerCase(); render(); });
-  document.getElementById('clearBtn').addEventListener('click', function(){
-    state = { q:"", cities:[], types:[], area:"all", company:"all", source:"all", sort:"recent" };
-    document.getElementById('search').value = "";
-    areaSelect.value = "all"; companySelect.value = "all"; sourceSelect.value = "all"; document.getElementById('sortSelect').value = "recent";
-    updateChipPressed(cityChipsEl, CITIES, []);
-    updateChipPressed(typeChipsEl, TYPES.map(function(t){return t[0];}), []);
-    render();
-  });
+}
 
-  var toggleFiltersBtn = document.getElementById('toggleFiltersBtn');
-  var filterGroupsWrap = document.getElementById('filterGroupsWrap');
-  var toggleFiltersLabel = document.getElementById('toggleFiltersLabel');
-  toggleFiltersBtn.addEventListener('click', function(){
-    var open = filterGroupsWrap.getAttribute('data-open') === 'true';
-    filterGroupsWrap.setAttribute('data-open', open ? 'false' : 'true');
-    toggleFiltersBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
-    toggleFiltersLabel.textContent = open ? 'Mostrar filtros' : 'Recolher filtros';
-  });
+document.getElementById('filterHead').addEventListener('click', function(){
+  var wrap = document.getElementById('filterGroupsWrap');
+  var open = wrap.getAttribute('data-open') === 'true';
+  wrap.setAttribute('data-open', open ? 'false' : 'true');
+});
 
-  /* ============ STATS ============ */
-  function renderStats(){
-    var byCity = {};
-    CITIES.forEach(function(c){ byCity[c]=0; });
-    DATA.forEach(function(d){ byCity[d.city]++; });
-    var maxCount = Math.max.apply(null, Object.values(byCity));
-    var sortedCities = CITIES.slice().sort(function(a,b){ return byCity[b]-byCity[a]; });
+document.getElementById('clearBtn').addEventListener('click', function(){
+  state.cities = [];
+  state.types = [];
+  state.area = "";
+  state.company = "";
+  state.source = "";
+  state.sort = "recent";
+  document.getElementById('areaSelect').value = "";
+  document.getElementById('companySelect').value = "";
+  document.getElementById('sourceSelect').value = "";
+  document.getElementById('sortSelect').value = "recent";
+  renderChips();
+  renderCards();
+});
 
-    var countEstagio = DATA.filter(function(d){return d.typeSlug==='estagio';}).length;
-    var countClt = DATA.filter(function(d){return d.typeSlug==='clt';}).length;
-    var countTemp = DATA.filter(function(d){return d.typeSlug==='temporario';}).length;
-
-    var barsHtml = sortedCities.map(function(c,i){
-      var pct = maxCount ? Math.round((byCity[c]/maxCount)*100) : 0;
-      return '<div class="bar-row"><span class="city-l">'+c+'</span><span class="bar-track"><span class="bar-fill'+(i===0?' top':'')+'" style="width:'+pct+'%"></span></span><span class="count tnum">'+byCity[c]+'</span></div>';
-    }).join('');
-
-    document.getElementById('stats').innerHTML =
-      '<div class="stat-tile hero"><span class="n tnum">'+DATA.length+'</span><span class="l">Vagas ativas</span></div>'+
-      '<div class="stat-tile"><span class="n tnum">'+CITIES.length+'</span><span class="l">Cidades</span></div>'+
-      '<div class="stat-tile"><span class="n tnum">'+countEstagio+'</span><span class="l">Estágio</span></div>'+
-      '<div class="stat-tile"><span class="n tnum">'+(countClt+countTemp)+'</span><span class="l">CLT / Temporário</span></div>';
-
-    document.getElementById('cityBars').innerHTML = barsHtml;
-  }
-
-  /* ============ CARDS ============ */
-  var typeColorVar = { estagio:'var(--type-estagio-ink)', clt:'var(--type-clt-ink)', temporario:'var(--type-temp-ink)' };
-  var typeBgVar = { estagio:'var(--type-estagio-bg)', clt:'var(--type-clt-bg)', temporario:'var(--type-temp-bg)' };
-
-  function cardHtml(d){
-    var isNew = d.batch === LATEST_BATCH;
-    var metaBits = [];
-    if(d.meta && d.meta !== "—") metaBits.push('<span>'+d.meta+'</span>');
-    metaBits.push('<span class="checked-on">'+ICON_CHECK+' Verificado '+d.checked+'</span>');
-    return (
-    '<article class="card" data-open="false" data-id="'+d.id+'">'+
-      '<div class="card-stripe" style="--type-color:'+typeColorVar[d.typeSlug]+'"></div>'+
-      '<div class="card-content">'+
-      '<button type="button" class="card-head" aria-expanded="false">'+
-        '<div class="chead-badges">'+
-          '<span class="badge" style="background:'+typeBgVar[d.typeSlug]+';color:'+typeColorVar[d.typeSlug]+'">'+d.type+'</span>'+
-          '<div class="row2">'+
-            (isNew ? '<span class="new-pill">NOVA · '+LATEST_CHECKED.slice(0,5)+'</span>' : '') +
-            '<span class="ref">'+d.ref+'</span>'+
-          '</div>'+
-        '</div>'+
-        '<div class="chead-main">'+
-          '<h3 class="card-title">'+d.title+'</h3>'+
-          '<div class="card-meta">'+
-            '<span>'+ICON_PIN+' '+d.city+'</span>'+
-            '<span>'+ICON_BLD+' '+d.company+'</span>'+
-            metaBits.join('')+
-          '</div>'+
-        '</div>'+
-        '<span class="area-tag">'+d.area+'</span>'+
-        '<svg class="chev" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 5.5L7 9l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
-      '</button>'+
-      '<div class="card-body"><div class="card-body-inner">'+
-        '<div class="fields">'+
-          (d.activities!=="—" ? '<div class="field"><b>Atividades.</b> '+d.activities+'</div>' : '')+
-          (d.requirements!=="—" ? '<div class="field"><b>Requisitos.</b> '+d.requirements+'</div>' : '')+
-          (d.schedule!=="—" ? '<div class="field"><b>Horário.</b> '+d.schedule+'</div>' : '')+
-          (d.benefits!=="—" ? '<div class="field"><b>Benefícios.</b> '+d.benefits+'</div>' : '')+
-        '</div>'+
-        '<div class="apply-row">'+
-          '<span class="source-tag">via '+d.source+'</span>'+
-          '<div class="right-links">'+
-          (COMPANY_LINKEDIN[d.company] ? '<a class="company-link" href="'+COMPANY_LINKEDIN[d.company]+'" target="_blank" rel="noopener noreferrer">Ver empresa no LinkedIn '+ICON_ARROW+'</a>' : '')+
-          '<a class="apply-link" href="'+d.url+'" target="_blank" rel="noopener noreferrer">Candidatar-se '+ICON_ARROW+'</a>'+
-          '</div>'+
-        '</div>'+
-      '</div></div>'+
-      '</div>'+
-    '</article>');
-  }
-
-  var gridEl = document.getElementById('grid');
-  gridEl.addEventListener('click', function(e){
-    var head = e.target.closest('.card-head'); if(!head) return;
-    var card = head.closest('.card');
-    var open = card.getAttribute('data-open') === 'true';
-    card.setAttribute('data-open', open ? 'false' : 'true');
-    head.setAttribute('aria-expanded', open ? 'false' : 'true');
-  });
-
-  function applyFilters(){
-    var list = DATA.filter(function(d){
-      if(state.cities.length && state.cities.indexOf(d.city)===-1) return false;
-      if(state.types.length && state.types.indexOf(d.typeSlug)===-1) return false;
-      if(state.area!=='all' && d.area!==state.area) return false;
-      if(state.company!=='all' && d.company!==state.company) return false;
-      if(state.source!=='all' && d.source!==state.source) return false;
-      if(state.q){
-        var hay = (d.title+' '+d.company+' '+d.area+' '+d.city).toLowerCase();
-        if(hay.indexOf(state.q)===-1) return false;
-      }
-      return true;
-    });
-    list.sort(function(a,b){
-      if(state.sort==='city') return a.city.localeCompare(b.city) || a.title.localeCompare(b.title);
-      if(state.sort==='company') return a.company.localeCompare(b.company);
-      if(state.sort==='title') return a.title.localeCompare(b.title);
-      return (b.batch-a.batch) || (b.id-a.id);
-    });
-    return list;
-  }
-
-  function render(){
-    var list = applyFilters();
-    document.getElementById('countShown').textContent = list.length;
-    var bits = [];
-    if(state.cities.length) bits.push(state.cities.join(', '));
-    if(state.types.length) bits.push(state.types.map(function(slug){ return TYPES.find(function(t){return t[0]===slug;})[1]; }).join(', '));
-    if(state.area!=='all') bits.push(state.area);
-    if(state.company!=='all') bits.push(state.company);
-    if(state.source!=='all') bits.push(state.source);
-    document.getElementById('filterSummary').textContent = bits.length ? ('Filtros: '+bits.join(' · ')) : '';
-
-    if(!list.length){
-      gridEl.innerHTML = '<div class="empty-state"><p>Nenhuma vaga encontrada com esses filtros.</p><button class="clear-btn" onclick="document.getElementById(\'clearBtn\').click()">Limpar filtros</button></div>';
-      return;
-    }
-    gridEl.innerHTML = list.map(cardHtml).join('');
-  }
-
-  renderStats();
-  render();
-})();
+renderStats();
+renderCityBars();
+renderChips();
+initSelects();
+renderCards();
 </script>
 </body>
 </html>
