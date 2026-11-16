@@ -196,20 +196,37 @@
   .card-head{
     width:100%; text-align:left; background:none; border:none; cursor:pointer; color:inherit;
     padding:14px 18px; display:grid;
-    grid-template-columns: auto 168px minmax(0,1fr) auto auto; align-items:center; gap:8px 20px;
+    grid-template-columns: 168px minmax(0,1fr) auto auto auto; align-items:center; gap:8px 20px;
   }
   .card-head:hover{ background:var(--surface-2); }
-  .applied-toggle{
-    display:flex; align-items:center; gap:7px; cursor:pointer; white-space:nowrap;
-    font-family:var(--font-mono); font-size:10.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-3);
-    padding-block:6px;
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+    clip:rect(0,0,0,0); white-space:nowrap; border:0;
   }
-  .applied-toggle input[type="checkbox"]{
-    width:18px; height:18px; flex:none; cursor:pointer; accent-color:var(--accent);
+  .card-actions{ display:flex; align-items:center; gap:6px; }
+  .icon-toggle{ display:inline-flex; cursor:pointer; }
+  .icon-toggle-box{
+    width:30px; height:30px; display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--border-strong); border-radius:9px; background:var(--surface); color:var(--ink-3);
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
   }
-  .applied-toggle:hover{ color:var(--ink-2); }
+  .icon-toggle:hover .icon-toggle-box{ border-color:var(--ink-3); color:var(--ink-2); }
+  .icon-toggle input:focus-visible ~ .icon-toggle-box{ outline:2px solid var(--focus-ring); outline-offset:2px; }
+  .icon-toggle--applied input:checked ~ .icon-toggle-box{
+    background:var(--accent-soft); border-color:var(--accent-light); color:var(--accent-soft-ink);
+  }
+  .icon-toggle--skip input:checked ~ .icon-toggle-box{
+    background:var(--ink); border-color:var(--ink); color:var(--surface);
+  }
+  .skip-pill{
+    font-family:var(--font-mono); font-size:9.5px; font-weight:700; letter-spacing:.06em;
+    color:var(--ink-3); background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:2px 7px;
+    white-space:nowrap;
+  }
   .card[data-applied="true"]{ opacity:.6; }
   .card[data-applied="true"] .card-title{ text-decoration:line-through; color:var(--ink-3); }
+  .card[data-skipped="true"]{ opacity:.5; }
+  .card[data-skipped="true"] .card-title{ color:var(--ink-3); }
   .chead-badges{ display:flex; flex-direction:column; align-items:flex-start; gap:6px; min-width:0; max-width:100%; }
   .chead-badges .row2{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; min-width:0; max-width:100%; }
   .badge{
@@ -288,7 +305,7 @@
     <h1 class="title">Vagas de Química — Grande ABC</h1>
     <p class="subtitle">Analista júnior, técnico em química e auxiliar de laboratório em indústrias, laboratórios e centros de P&amp;D de Santo André, São Bernardo do Campo, São Caetano do Sul, Diadema, Mauá e Ribeirão Pires.</p>
     <div class="meta-line">
-      <span><b>Última atualização</b> · 09 nov 2026</span>
+      <span><b>Última atualização</b> · 16 nov 2026</span>
       <span><b>Fontes</b> · Indeed, Catho, Vagas.com, Portal IMT, SmartRecruiters, InfoJobs, BNE, sites de carreira das empresas, LinkedIn das empresas</span>
       <span><b>Links</b> · testados individualmente</span>
     </div>
@@ -333,8 +350,9 @@
         </div>
         <div class="fgroup">
           <span class="flabel">Minha lista <span class="fhint">salva só neste navegador</span></span>
-          <div class="chipset" id="appliedChips" role="group" aria-label="Filtrar vagas já marcadas como candidatadas">
+          <div class="chipset" id="appliedChips" role="group" aria-label="Filtrar vagas marcadas nesta lista pessoal">
             <button type="button" class="chip" id="hideAppliedChip" aria-pressed="false">🙈 Ocultar já candidatadas</button>
+            <button type="button" class="chip" id="hideSkippedChip" aria-pressed="false">👎 Ocultar não são pra mim</button>
           </div>
         </div>
         <div class="fgroup">
@@ -377,10 +395,10 @@
   </main>
 
   <footer>
-    <span><b>Metodologia</b> — vagas levantadas em onze rodadas (08/09, 14/09, 19/09, 21/09, 28/09, 05/10, 12/10, 19/10, 26/10, 02/11 e 09/11/2026) via busca em Indeed, Catho, Vagas.com, Portal IMT, SmartRecruiters, InfoJobs, BNE, sites de carreira das próprias empresas e — a partir da 3ª rodada — nas páginas de LinkedIn das empresas da região. Cada link foi acessado individualmente para confirmar que a vaga estava ativa na data indicada como "Verificado em" no card.</span>
-    <span><b>Atualizações</b> — a cada nova rodada de busca, as vagas já listadas são reconferidas; as que não estiverem mais ativas são removidas do painel e só as vagas novas ou ainda abertas permanecem. Nesta atualização (09/11/2026): 3 vagas removidas (Auxiliar de Laboratório de Manipulação/Unicpharma em Diadema, Auxiliar/Operador de Produção/Theraskin Farmacêutica em SBC e Operador de Produção/Tintas Sulan em Santo André — todas com inscrições encerradas ou redirecionando para busca genérica) e 6 vagas novas adicionadas — painel passou de 108 para 111 vagas ativas. Destaque: 1 nova vaga de estágio em P&amp;D de materiais poliméricos na Solvay (Santo André) e 2 empresas vistas por aqui pela primeira vez (Pro-Pack Acabamentos Gráficos, em SBC, e Vigor Alimentos, em São Caetano do Sul) — ainda não verificadas por fonte independente, por isso não entraram na lista mestra de empresas desta rodada.</span>
+    <span><b>Metodologia</b> — vagas levantadas em doze rodadas (08/09, 14/09, 19/09, 21/09, 28/09, 05/10, 12/10, 19/10, 26/10, 02/11, 09/11 e 16/11/2026) via busca em Indeed, Catho, Vagas.com, Portal IMT, SmartRecruiters, InfoJobs, BNE, sites de carreira das próprias empresas e — a partir da 3ª rodada — nas páginas de LinkedIn das empresas da região. Cada link foi acessado individualmente para confirmar que a vaga estava ativa na data indicada como "Verificado em" no card.</span>
+    <span><b>Atualizações</b> — a cada nova rodada de busca, as vagas já listadas são reconferidas; as que não estiverem mais ativas são removidas do painel e só as vagas novas ou ainda abertas permanecem. Nesta atualização (16/11/2026): 2 vagas removidas (Operador de Utilidades I/Paranapanema em Santo André, com inscrições encerradas, e Estágio de Pesquisa &amp; Inovação em materiais poliméricos/Rhodia-Solvay em Santo André, vaga já preenchida) e 5 vagas novas adicionadas (Auxiliar de Laboratório na Vivacor e na Aston, ambas em Diadema; Auxiliar de Laboratório temporário via Manpower em Mauá; Técnico de Laboratório Pleno na SGS em São Bernardo do Campo; e Auxiliar de Laboratório na Maxi Rubber em Diadema) — painel passou de 111 para 114 vagas ativas. Nenhuma empresa nova entrou na lista mestra nesta rodada (todas as 5 vagas novas são de empresas já verificadas em rodadas anteriores). Cerca de 15 vagas não puderam ser reverificadas nesta rodada por bloqueio técnico temporário de alguns sites (Catho, Vagas.com, Solvay) às ferramentas automatizadas — foram mantidas no painel por precaução, sem confirmação de inatividade, e serão reconferidas na próxima rodada.</span>
     <span>Vagas de plataformas como Catho e Indeed costumam fechar em poucas semanas — candidate-se assim que possível. Painel de uso pessoal, sem vínculo com as empresas listadas.</span>
-    <span><b>Checklist "Já me candidatei"</b> — marque os cards para lembrar quais vagas você já aplicou. A marcação é salva apenas neste navegador/aparelho (armazenamento local do próprio dispositivo), não é compartilhada com outras pessoas nem enviada a nenhum servidor. Se você limpar os dados do site, trocar de navegador ou de aparelho, a lista reinicia.</span>
+    <span><b>Minha lista</b> — use os dois ícones de cada card para marcar "Candidatei-me" (✓) ou "Não é pra mim" (🚫), e use os chips "Ocultar já candidatadas" / "Ocultar não são pra mim" para escondê-las da lista. As marcações são salvas apenas neste navegador/aparelho (armazenamento local do próprio dispositivo), não são compartilhadas com outras pessoas nem enviadas a nenhum servidor. Se você limpar os dados do site, trocar de navegador ou de aparelho, as listas reiniciam.</span>
   </footer>
 
 </div>
@@ -459,7 +477,6 @@
     {id:82,ref:"INDEED · AAD04EE4",title:"Operador(a) Químico I",company:"CBC — Companhia Brasileira de Cartuchos",city:"Ribeirão Pires",area:"Fabricação de Munições",type:"CLT",typeSlug:"clt",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=aad04ee483e1687d",meta:"Empresa verificada (site oficial + imprensa local).",published:"—",batch:8,checked:"09/11/2026",activities:"Operação de equipamentos de reação/conversão de produtos químicos; abastecer equipamentos; controlar temperatura/pressão; coletar amostras para laboratório; preencher planilhas de processo; acompanhar insumos/estoque.",requirements:"Ensino médio completo + curso SENAI de Operação de Processos Químicos; desejável técnico em Química, Office básico, inglês básico; residir na região do ABCDMR.",schedule:"100% presencial.",benefits:"Auxílio-creche, assistência médica/odontológica, vale-alimentação, PPR, restaurante e transporte fretado no local, parcerias SESI/SENAI."},
     {id:83,ref:"INDEED · 9B6FB722",title:"Inspetor de Qualidade",company:"General Compostos",city:"Diadema",area:"Compostos Poliméricos",type:"CLT",typeSlug:"clt",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=9b6fb72246515429",meta:"R$ 3.475/mês. Empresa vista nesta vaga mas não verificada por fonte independente — confirmar na próxima rodada.",published:"—",batch:8,checked:"09/11/2026",activities:"Inspeciona materiais/produtos quanto à conformidade, registra não conformidades, acompanha etapas de produção.",requirements:"Técnico completo; experiência prévia.",schedule:"Segunda a sexta, 14h30 às 22h18.",benefits:"Plano médico, seguro de vida, PLR, vale-alimentação/refeição no local."},
     {id:84,ref:"INDEED · 4D6CBC4F",title:"Assistente de Laboratório (Indústria Química)",company:"AMA Trabalho Temporário (cliente não identificado)",city:"Mauá",area:"Química Industrial",type:"Temporário",typeSlug:"temporario",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=4d6cbc4fd084c9db",meta:"R$ 2.930/mês. Mesma vaga também anunciada por outras agências (Prolink RH, Vogh RH) — reportada apenas uma vez.",published:"—",batch:8,checked:"09/11/2026",activities:"Analisar amostras, calibrar equipamentos, preparar soluções, emitir FISPQ e certificado de análise.",requirements:"Técnico ou graduação em Química; experiência prévia (inclusive como estagiário).",schedule:"Segunda a sexta, 6h às 15h45.",benefits:"Vale-refeição R$37/dia, vale-transporte, vale-alimentação, cesta básica, assistência médica/odontológica, PLR ~R$1.300/ano, seguro de vida, refeição no local."},
-    {id:85,ref:"VAGAS.COM · 2836190",title:"Operador de Utilidades I",company:"Paranapanema S.A",city:"Santo André",area:"Metalurgia do Cobre",type:"CLT",typeSlug:"clt",source:"Vagas.com",url:"https://www.vagas.com.br/vagas/v2836190/operador-de-utilidades-i",meta:"Também anunciada no Indeed (jk=b856759ad227e0a9). Empresa verificada (site institucional — sede em Santo André). ⚠ publicação aging ~7 semanas — confirmar antes de aplicar.",published:"22/09/2026",batch:8,checked:"09/11/2026",activities:"Operar ETA/ETE, análises físico-químicas da água, preparar soluções químicas, acompanhar consumo de insumos, manobras operacionais.",requirements:"Técnico em Química, Meio Ambiente ou Processos Químicos; desejável manuseio de produtos químicos perigosos, NR-33, NR-35.",schedule:"—",benefits:"Assistência médica/odontológica, café da manhã, refeitório, seguro de vida, vale-alimentação, vale-transporte."},
     {id:86,ref:"INDEED · 8FD6F6C3",title:"Estágio — Programa Geral (inclui trilha Técnico em Química)",company:"Paranapanema S.A",city:"Santo André",area:"Metalurgia do Cobre",type:"Estágio",typeSlug:"estagio",source:"Indeed",url:"https://br.indeed.com/viewjob?jk=8fd6f6c3d8d61d07",meta:"Bolsa R$ 1.300–1.700/mês. Contato: selecaosp@paranapanema.com.br.",published:"—",batch:8,checked:"09/11/2026",activities:"Programa de estágio geral da empresa, com vivência em ambiente industrial; cobre Técnico em Química entre outras áreas.",requirements:"Cursando Técnico em Química (ou outras áreas do programa).",schedule:"—",benefits:"Vale-transporte, refeição no local."},
     {id:87,ref:"VAGAS.COM · 2839772",title:"Operador Utilidades II",company:"Prometeon Tyre Group",city:"Santo André",area:"Pneus",type:"CLT",typeSlug:"clt",source:"Vagas.com",url:"https://www.vagas.com.br/vagas/v2839772/operador-utilidades-ii",meta:"Empresa verificada por imprensa independente (planta de Santo André, ex-Pirelli).",published:"—",batch:8,checked:"09/11/2026",activities:"Operar caldeira, compressores, ETE/lodo ativado, torres de resfriamento; tratamento químico e desmineralização da água; checklists de segurança.",requirements:"—",schedule:"—",benefits:"Assistência médica/odontológica, auxílio academia/farmácia, PLR, restaurante interno, vale-alimentação, seguro de vida."},
     {id:89,ref:"VAGAS.COM · 2830108",title:"Analista de Desenvolvimento de Produto Júnior",company:"Theraskin Farmacêutica",city:"São Bernardo do Campo",area:"Farmacêutica e Dermocosmética",type:"CLT",typeSlug:"clt",source:"Vagas.com",url:"https://www.vagas.com.br/vagas/v2830108/analista-de-desenvolvimento-de-produto-junior",meta:"Publicada 30/09/2026.",published:"30/09/2026",batch:8,checked:"09/11/2026",activities:"Desenvolvimento/melhoria de medicamentos e dermocosméticos, testes de bancada, estudos de estabilidade, elaboração de fórmulas/instruções de processo, apoio a lotes piloto e transferência de tecnologia.",requirements:"Ensino superior completo em Farmácia; inglês intermediário; Excel. Diferencial: CRF ativo.",schedule:"—",benefits:"Assistência médica/odontológica, auxílio academia/farmácia, café da manhã, PLR, restaurante interno, seguro de vida, vale-alimentação, vale-transporte."},
@@ -501,7 +518,11 @@
     {id:129,ref:"CATHO · 39145478",title:"Auxiliar de Laboratório",company:"Pro-Pack Acabamentos Gráficos",city:"São Bernardo do Campo",area:"Laboratório de Tintas (Gráfica)",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-laboratorio/39145478",meta:"Salário R$ 3.000. ⚠ empresa nova, vista nesta rodada mas ainda não verificada por fonte independente — não adicionada à lista mestra até confirmação. ⚠ aviso de denúncia em análise no Catho — não impede visualização/candidatura.",published:"06/11/2026",batch:11,checked:"09/11/2026",activities:"Organizar materiais e pesar tintas/pigmentos; monitorar matérias-primas e ajustar viscosidade; auxiliar coloristas no laboratório de tintas na formulação de cor e testes com tintas arquitetônicas e automotivas; pesar fórmulas iniciais e fazer pequenos ajustes.",requirements:"Conhecimento de pigmentos; residir na região do ABC Paulista.",schedule:"Segunda a sexta, 8h às 18h.",benefits:"Assistência médica (medicina em grupo), odontológica, convênio farmácia, vale-refeição, estacionamento, vale-transporte."},
     {id:130,ref:"CATHO · 38733528",title:"Auxiliar Técnico de Laboratório (2 vagas)",company:"Empresa Confidencial",city:"Santo André",area:"Laboratório de Ensaios/Metalurgia",type:"Temporário",typeSlug:"temporario",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-tecnico-de-laboratorio/38733528",meta:"2 vagas; publicada 07/10/2026. ⚠ descrição sugere laboratório de metalurgia/ensaios, não necessariamente química pura — mantida por estar dentro do perfil de laboratório técnico. ⚠ aviso de denúncia em análise no Catho — não impede visualização/candidatura.",published:"07/10/2026",batch:11,checked:"09/11/2026",activities:"Testes técnicos, métodos de validação, análise de resultados, emissão de declarações de conformidade.",requirements:"Experiência comprovada na função; experiência em laboratórios de metalurgia e ensaios.",schedule:"—",benefits:"Assistência médica, cesta básica, restaurante no local, vale-transporte."},
     {id:131,ref:"CATHO · 39137772",title:"Assistente de Laboratório",company:"Vigor Alimentos",city:"São Caetano do Sul",area:"Qualidade (Alimentos/Química)",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/assistente-de-laboratorio/39137772",meta:"Salário a partir de R$ 2.000; turno noturno; endereço Rua Amazonas 77, SCS. ⚠ empresa nova (grande fabricante de laticínios), vista nesta rodada mas presença física em São Caetano do Sul ainda não confirmada por fonte independente — não adicionada à lista mestra até confirmação.",published:"05/11/2026",batch:11,checked:"09/11/2026",activities:"Garantir cumprimento e atualização de procedimentos; identificar, registrar e propor soluções para problemas que afetem a qualidade; verificar conformidade de processos/produtos com requisitos de qualidade.",requirements:"Ensino médio completo ou tecnólogo; cursando superior em área correlata (Química, Alimentos, Laticínios, Bioquímica, Química Industrial, Engenharia Química/Alimentos/Produção) é preferencial; Office é diferencial.",schedule:"Segunda a sexta, 21h às 06h03 (noturno).",benefits:"Assistência médica, odontológica, vale-refeição, restaurante, vale-transporte."},
-    {id:132,ref:"SOLVAY · 1376542257",title:"Estágio de Pesquisa & Inovação em materiais poliméricos (H/M/X)",company:"Rhodia / Solvay",city:"Santo André",area:"Petroquímica",type:"Estágio",typeSlug:"estagio",source:"Solvay (site oficial)",url:"https://careers.solvay.com/job/Brazil-Santo-Andr%C3%A9-Est%C3%A1gio-de-Pesquisa-&-Inova%C3%A7%C3%A3o-em-materiais-polim%C3%A9ricos-%28HMX%29/1376542257/",meta:"Bolsa R$ 2.100/mês; estágio de 12 meses (prorrogável).",published:"—",batch:11,checked:"09/11/2026",activities:"Planejar, preparar, executar e monitorar testes-piloto experimentais; organizar, analisar e interpretar dados e resultados; revisão de literatura sobre materiais/processos/tecnologias; apoiar projetos de reciclagem textil/circularidade e plásticos de engenharia.",requirements:"Cursando Engenharia de Materiais, Engenharia Química, Engenharia Têxtil ou áreas correlatas; conhecimento básico de materiais, polímeros, processos químicos e processamento de polímeros; Office, uso apropriado de IA, análise de dados.",schedule:"Segunda a sexta, 8h às 15h, presencial.",benefits:"Programa Solvay Cares (saúde, invalidez, vida), flexibilidade/híbrido quando aplicável, programa de assistência ao colaborador, plataforma de treinamento, grupos de recursos para funcionários, cursos de idiomas gratuitos."}
+    {id:133,ref:"CATHO · 38316130",title:"Auxiliar de Laboratório",company:"Vivacor",city:"Diadema",area:"Tintas e Vernizes",type:"CLT",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-laboratorio/38316130",meta:"R$ 2.354 · CRQ ativo necessário",published:"08/09/2026",batch:12,checked:"16/11/2026",activities:"Analisar semiacabados e acabados quanto à cor, resistência e viscosidade; realizar cromatografia; apoiar emissão de FISPQ e Boletim Técnico; controlar documentação de matérias-primas e contato com fornecedores; apoiar análise de novas matérias-primas e calibração de equipamentos; testar produto final (aderência, secagem, cor, viscosidade); emitir relatórios de análise para aprovação da gerência.",requirements:"CRQ ativo necessário.",schedule:"—",benefits:"—"},
+    {id:134,ref:"CATHO · 35905421",title:"Auxiliar de Laboratório",company:"Aston (Resinas Termoplásticas)",city:"Diadema",area:"Polímeros e Resinas Plásticas",type:"CLT Efetivo",typeSlug:"clt",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-laboratorio/35905421",meta:"R$ 2.301",published:"25/03/2026",batch:12,checked:"16/11/2026",activities:"Realizar análises físico-químicas de materiais plásticos; coletar e preparar amostras; operar injetora para confecção de corpos de prova e placas de teste; operar equipamentos de laboratório; documentar e reportar resultados, retendo amostras para rastreabilidade; manter o laboratório limpo e organizado.",requirements:"Técnico em Plásticos ou Química; experiência prévia em laboratório de empresa do setor plástico é desejável.",schedule:"Segunda a quinta, 7h30 às 17h30; sexta, 7h30 às 16h30.",benefits:"Assistência médica, assistência odontológica, cesta básica, vale-transporte, participação nos lucros."},
+    {id:135,ref:"CATHO · 37894941",title:"Auxiliar de Laboratório",company:"Manpower (cliente final não identificado)",city:"Mauá",area:"Química Industrial",type:"Temporário",typeSlug:"temporario",source:"Catho",url:"https://www.catho.com.br/vagas/auxiliar-de-laboratorio/37894941",meta:"R$ 2.000 · também destinada a PCD",published:"10/08/2026",batch:12,checked:"16/11/2026",activities:"Coleta e preparo de amostras; análises químicas e físicas; organização do setor; registro de dados e elaboração de relatórios.",requirements:"Técnico ou bacharel em Química com CRQ ativo; experiência na área; Excel intermediário.",schedule:"Período integral.",benefits:"—"},
+    {id:136,ref:"VAGAS.COM · 2839351",title:"Técnico de Laboratório Pleno",company:"SGS",city:"São Bernardo do Campo",area:"Metrologia, Inspeção e Certificação",type:"CLT",typeSlug:"clt",source:"Vagas.com",url:"https://www.vagas.com.br/vagas/v2839351/tecnico-de-laboratorio-pleno",meta:"Atuação em laboratório para cliente fabricante de caminhões/ônibus; curso técnico em Metalurgia/Materiais ou Mecânica",published:"14/10/2026",batch:12,checked:"16/11/2026",activities:"Ensaios mecânicos destrutivos (tração, dureza, impacto, fadiga) e não destrutivos (líquido penetrante, ultrassom, radiografia); análises químicas (espectroscopia, cromatografia, raios-X); ensaios metalográficos (preparação de amostras e microscopia); ensaios físicos e de corrosão (névoa salina).",requirements:"Técnico completo em Metalurgia/Materiais ou Mecânica.",schedule:"—",benefits:"Auxílio fretado e refeitório."},
+    {id:137,ref:"INFOJOBS · 12220963",title:"Auxiliar de Laboratório",company:"Maxi Rubber",city:"Diadema",area:"Impermeabilizantes e Adesivos",type:"CLT Efetivo",typeSlug:"clt",source:"InfoJobs",url:"https://www.infojobs.com.br/vaga-de-auxiliar-laboratorio-em-sao-paulo__12220963.aspx",meta:"R$ 3.367,00/mês · CRQ ativo necessário · sem experiência exigida",published:"—",batch:12,checked:"16/11/2026",activities:"Controle de qualidade de massas, adesivos, primers, tintas e vernizes; análises químicas e físicas de matérias-primas, produtos intermediários e produtos finais; preparo de materiais e equipamentos de laboratório; registro e interpretação de dados de ensaios; apoio a ajustes de formulação conforme protocolos; manutenção da limpeza/segurança do laboratório; apoio a relatórios técnicos.",requirements:"Curso técnico mínimo (área de Química); CRQ ativo; sem experiência prévia exigida.",schedule:"Período integral, presencial.",benefits:"—"}
   ];
 
   var CITIES = ["Santo André","São Bernardo do Campo","São Caetano do Sul","Diadema","Mauá","Ribeirão Pires"];
@@ -513,34 +534,42 @@
   var LATEST_CHECKED = DATA.filter(function(d){return d.batch===LATEST_BATCH;}).map(function(d){return d.checked;})[0] || "";
   document.getElementById('countTotal').textContent = DATA.length;
 
-  /* ============ CHECKLIST "JÁ ME CANDIDATEI" (localStorage, por navegador) ============ */
+  /* ============ CHECKLIST "JÁ ME CANDIDATEI" / "NÃO É PRA MIM" (localStorage, por navegador) ============ */
   var APPLIED_KEY = 'vagasQuimicaABC_applied_v1';
-  function loadApplied(){
+  var SKIPPED_KEY = 'vagasQuimicaABC_skipped_v1';
+  function loadMap(key){
     try{
-      var raw = window.localStorage.getItem(APPLIED_KEY);
+      var raw = window.localStorage.getItem(key);
       var obj = raw ? JSON.parse(raw) : {};
       return (obj && typeof obj === 'object') ? obj : {};
     }catch(err){ return {}; }
   }
-  function saveApplied(map){
-    try{ window.localStorage.setItem(APPLIED_KEY, JSON.stringify(map)); }
+  function saveMap(key, map){
+    try{ window.localStorage.setItem(key, JSON.stringify(map)); }
     catch(err){ /* localStorage indisponível (modo privado, cota cheia, etc.) — ignora silenciosamente */ }
   }
-  var appliedMap = loadApplied();
-  (function pruneApplied(){
+  var appliedMap = loadMap(APPLIED_KEY);
+  var skippedMap = loadMap(SKIPPED_KEY);
+  (function pruneMaps(){
     var validIds = {};
     DATA.forEach(function(d){ validIds[d.id] = true; });
-    var changed = false;
-    Object.keys(appliedMap).forEach(function(id){
-      if(!validIds[id]){ delete appliedMap[id]; changed = true; }
+    [[appliedMap,APPLIED_KEY],[skippedMap,SKIPPED_KEY]].forEach(function(pair){
+      var map = pair[0], key = pair[1], changed = false;
+      Object.keys(map).forEach(function(id){
+        if(!validIds[id]){ delete map[id]; changed = true; }
+      });
+      if(changed) saveMap(key, map);
     });
-    if(changed) saveApplied(appliedMap);
   })();
-  function updateAppliedCount(){
-    var n = Object.keys(appliedMap).length;
+  function updateCountsLine(){
     var el = document.getElementById('appliedCountLine');
     if(!el) return;
-    el.textContent = n ? (' · '+n+(n===1 ? ' candidatada' : ' candidatadas')) : '';
+    var nApplied = Object.keys(appliedMap).length;
+    var nSkipped = Object.keys(skippedMap).length;
+    var bits = [];
+    if(nApplied) bits.push(nApplied+(nApplied===1 ? ' candidatada' : ' candidatadas'));
+    if(nSkipped) bits.push(nSkipped+(nSkipped===1 ? ' marcada como não é pra mim' : ' marcadas como não é pra mim'));
+    el.textContent = bits.length ? (' · '+bits.join(' · ')) : '';
   }
 
   var COMPANY_LINKEDIN = {
@@ -554,7 +583,7 @@
     "Health Tech Laboratório":"https://br.linkedin.com/company/health-tech-laboratorio",
     "Agroquímica Maringá":"https://br.linkedin.com/company/agro-quimica-maringa",
     "MSA Safety":"https://br.linkedin.com/company/msa-do-brasil-instrumentos-e-equipamentos-de-seguran-a",
-    "Aston (materiais plásticos)":"https://www.linkedin.com/company/aston-industria-e-comercio-de-resinas-termoplasticas",
+    "Aston (Resinas Termoplásticas)":"https://www.linkedin.com/company/aston-industria-e-comercio-de-resinas-termoplasticas",
     "PHD do Brasil":"https://www.linkedin.com/company/phd-do-brasil",
     "Arcade Beauty":"https://www.linkedin.com/company/arcade-beauty-brasil",
     "Vivacor":"https://br.linkedin.com/company/vivacor-ind.-tintas-e-vernizes-ltda.",
@@ -578,12 +607,14 @@
     "Autoluks (Lukscolor Tintas / grupo Luksnova)":"https://br.linkedin.com/company/lukscolor"
   };
 
-  var state = { q:"", cities:[], types:[], onlyNew:false, hideApplied:false, area:"all", company:"all", source:"all", sort:"recent" };
+  var state = { q:"", cities:[], types:[], onlyNew:false, hideApplied:false, hideSkipped:false, area:"all", company:"all", source:"all", sort:"recent" };
 
   var ICON_PIN = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 11S10 7.4 10 4.7A4 4 0 002 4.7C2 7.4 6 11 6 11z" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="4.6" r="1.4" stroke="currentColor" stroke-width="1.1"/></svg>';
   var ICON_BLD = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="1.5" width="8" height="9" rx="0.6" stroke="currentColor" stroke-width="1.1"/><path d="M4.2 4h.01M4.2 6h.01M4.2 8h.01M7.8 4h.01M7.8 6h.01M7.8 8h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var ICON_ARROW = '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2.5 8.5l6-6M4 2.5h4.5V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var ICON_CHECK = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.1"/><path d="M3.6 6.1l1.6 1.6 3.2-3.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var ICON_APPLIED_TOGGLE = '<svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3 7.8l3.2 3.2L12 4.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var ICON_SKIP_TOGGLE = '<svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M3.8 11.2L11.2 3.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
 
   function chip(label, pressed){
     return '<button type="button" class="chip" aria-pressed="'+pressed+'">'+label+'</button>';
@@ -641,19 +672,26 @@
     hideAppliedChip.setAttribute('aria-pressed', state.hideApplied ? 'true' : 'false');
     render();
   });
+  var hideSkippedChip = document.getElementById('hideSkippedChip');
+  hideSkippedChip.addEventListener('click', function(){
+    state.hideSkipped = !state.hideSkipped;
+    hideSkippedChip.setAttribute('aria-pressed', state.hideSkipped ? 'true' : 'false');
+    render();
+  });
   areaSelect.addEventListener('change', function(){ state.area = areaSelect.value; render(); });
   companySelect.addEventListener('change', function(){ state.company = companySelect.value; render(); });
   sourceSelect.addEventListener('change', function(){ state.source = sourceSelect.value; render(); });
   document.getElementById('sortSelect').addEventListener('change', function(e){ state.sort = e.target.value; render(); });
   document.getElementById('search').addEventListener('input', function(e){ state.q = e.target.value.trim().toLowerCase(); render(); });
   document.getElementById('clearBtn').addEventListener('click', function(){
-    state = { q:"", cities:[], types:[], onlyNew:false, hideApplied:false, area:"all", company:"all", source:"all", sort:"recent" };
+    state = { q:"", cities:[], types:[], onlyNew:false, hideApplied:false, hideSkipped:false, area:"all", company:"all", source:"all", sort:"recent" };
     document.getElementById('search').value = "";
     areaSelect.value = "all"; companySelect.value = "all"; sourceSelect.value = "all"; document.getElementById('sortSelect').value = "recent";
     updateChipPressed(cityChipsEl, CITIES, []);
     updateChipPressed(typeChipsEl, TYPES.map(function(t){return t[0];}), []);
     newOnlyChip.setAttribute('aria-pressed', 'false');
     hideAppliedChip.setAttribute('aria-pressed', 'false');
+    hideSkippedChip.setAttribute('aria-pressed', 'false');
     render();
   });
 
@@ -699,22 +737,20 @@
   function cardHtml(d){
     var isNew = d.batch === LATEST_BATCH;
     var isApplied = !!appliedMap[d.id];
+    var isSkipped = !!skippedMap[d.id];
     var metaBits = [];
     if(d.meta && d.meta !== "—") metaBits.push('<span>'+d.meta+'</span>');
     metaBits.push('<span class="checked-on">'+ICON_CHECK+' Verificado '+d.checked+'</span>');
     return (
-    '<article class="card" data-open="false" data-applied="'+(isApplied?'true':'false')+'" data-id="'+d.id+'">'+
+    '<article class="card" data-open="false" data-applied="'+(isApplied?'true':'false')+'" data-skipped="'+(isSkipped?'true':'false')+'" data-id="'+d.id+'">'+
       '<div class="card-stripe" style="--type-color:'+typeColorVar[d.typeSlug]+'"></div>'+
       '<div class="card-content">'+
       '<div class="card-head" role="button" tabindex="0" aria-expanded="false">'+
-        '<label class="applied-toggle" title="Marcar como já candidatado — fica salvo só neste navegador" onclick="event.stopPropagation()">'+
-          '<input type="checkbox" class="applied-checkbox" data-id="'+d.id+'"'+(isApplied?' checked':'')+'>'+
-          '<span>Candidatei-me</span>'+
-        '</label>'+
         '<div class="chead-badges">'+
           '<span class="badge" style="background:'+typeBgVar[d.typeSlug]+';color:'+typeColorVar[d.typeSlug]+'">'+d.type+'</span>'+
           '<div class="row2">'+
             (isNew ? '<span class="new-pill">NOVA · '+LATEST_CHECKED.slice(0,5)+'</span>' : '') +
+            (isSkipped ? '<span class="skip-pill">Não é pra mim</span>' : '') +
             '<span class="ref">'+d.ref+'</span>'+
           '</div>'+
         '</div>'+
@@ -727,6 +763,16 @@
           '</div>'+
         '</div>'+
         '<span class="area-tag">'+d.area+'</span>'+
+        '<div class="card-actions" onclick="event.stopPropagation()">'+
+          '<label class="icon-toggle icon-toggle--applied" title="Candidatei-me — fica salvo só neste navegador">'+
+            '<input type="checkbox" class="sr-only applied-checkbox" data-id="'+d.id+'"'+(isApplied?' checked':'')+'>'+
+            '<span class="icon-toggle-box">'+ICON_APPLIED_TOGGLE+'</span>'+
+          '</label>'+
+          '<label class="icon-toggle icon-toggle--skip" title="Não é pra mim — fica salvo só neste navegador">'+
+            '<input type="checkbox" class="sr-only skip-checkbox" data-id="'+d.id+'"'+(isSkipped?' checked':'')+'>'+
+            '<span class="icon-toggle-box">'+ICON_SKIP_TOGGLE+'</span>'+
+          '</label>'+
+        '</div>'+
         '<svg class="chev" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 5.5L7 9l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
       '</div>'+
       '<div class="card-body"><div class="card-body-inner">'+
@@ -750,7 +796,7 @@
 
   var gridEl = document.getElementById('grid');
   gridEl.addEventListener('click', function(e){
-    if(e.target.closest('.applied-toggle')) return;
+    if(e.target.closest('.card-actions')) return;
     var head = e.target.closest('.card-head'); if(!head) return;
     var card = head.closest('.card');
     var open = card.getAttribute('data-open') === 'true';
@@ -759,27 +805,46 @@
   });
   gridEl.addEventListener('keydown', function(e){
     if(e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
-    if(e.target.closest('.applied-toggle')) return;
+    if(e.target.closest('.card-actions')) return;
     var head = e.target.closest('.card-head'); if(!head) return;
     e.preventDefault();
     head.click();
   });
-  gridEl.addEventListener('change', function(e){
-    var cb = e.target.closest('.applied-checkbox'); if(!cb) return;
+  function handleToggleChange(cb, map, key, attrName, hideState){
     var id = cb.getAttribute('data-id');
-    if(cb.checked){ appliedMap[id] = true; } else { delete appliedMap[id]; }
-    saveApplied(appliedMap);
+    if(cb.checked){ map[id] = true; } else { delete map[id]; }
+    saveMap(key, map);
     var card = cb.closest('.card');
     if(card){
-      card.setAttribute('data-applied', cb.checked ? 'true' : 'false');
-      if(state.hideApplied && cb.checked){
+      card.setAttribute(attrName, cb.checked ? 'true' : 'false');
+      if(hideState && cb.checked){
         card.remove();
         var shownEl = document.getElementById('countShown');
         var remaining = Math.max(0, (parseInt(shownEl.textContent,10)||0) - 1);
         if(remaining === 0){ render(); } else { shownEl.textContent = String(remaining); }
       }
     }
-    updateAppliedCount();
+    updateCountsLine();
+  }
+  gridEl.addEventListener('change', function(e){
+    var appliedCb = e.target.closest('.applied-checkbox');
+    if(appliedCb){ handleToggleChange(appliedCb, appliedMap, APPLIED_KEY, 'data-applied', state.hideApplied); return; }
+    var skipCb = e.target.closest('.skip-checkbox');
+    if(skipCb){
+      var card = skipCb.closest('.card');
+      var row2 = card ? card.querySelector('.row2') : null;
+      var pill = row2 ? row2.querySelector('.skip-pill') : null;
+      if(skipCb.checked){
+        if(row2 && !pill){
+          var span = document.createElement('span');
+          span.className = 'skip-pill';
+          span.textContent = 'Não é pra mim';
+          row2.insertBefore(span, row2.firstChild);
+        }
+      } else if(pill){ pill.remove(); }
+      handleToggleChange(skipCb, skippedMap, SKIPPED_KEY, 'data-skipped', state.hideSkipped);
+      return;
+    }
   });
 
   function applyFilters(){
@@ -788,6 +853,7 @@
       if(state.types.length && state.types.indexOf(d.typeSlug)===-1) return false;
       if(state.onlyNew && d.batch!==LATEST_BATCH) return false;
       if(state.hideApplied && appliedMap[d.id]) return false;
+      if(state.hideSkipped && skippedMap[d.id]) return false;
       if(state.area!=='all' && d.area!==state.area) return false;
       if(state.company!=='all' && d.company!==state.company) return false;
       if(state.source!=='all' && d.source!==state.source) return false;
@@ -809,12 +875,13 @@
   function render(){
     var list = applyFilters();
     document.getElementById('countShown').textContent = list.length;
-    updateAppliedCount();
+    updateCountsLine();
     var bits = [];
     if(state.cities.length) bits.push(state.cities.join(', '));
     if(state.types.length) bits.push(state.types.map(function(slug){ return TYPES.find(function(t){return t[0]===slug;})[1]; }).join(', '));
     if(state.onlyNew) bits.push('Só novas desta semana');
     if(state.hideApplied) bits.push('Ocultando já candidatadas');
+    if(state.hideSkipped) bits.push('Ocultando não são pra mim');
     if(state.area!=='all') bits.push(state.area);
     if(state.company!=='all') bits.push(state.company);
     if(state.source!=='all') bits.push(state.source);
